@@ -1,0 +1,2 @@
+C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\skse64_common.pdb
+C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\skse64_common\x64\Debug\skse64_common.pdb

@@ -1,0 +1,5 @@
+﻿  skse64.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\sksevr_1_4_15.dll
+  Access is denied.
+          0 file(s) copied.
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(149,5): error MSB3073: The command "copy "C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\sksevr_1_4_15.dll" "\sksevr_1_4_15.dll" /Y
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(149,5): error MSB3073: :VCEnd" exited with code 1.
