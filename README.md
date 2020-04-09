@@ -1,5 +1,5 @@
 # EngineFixesVR
-Port of EngineFixesSSE frm Skyrim SE for Skyrim VR
+Port of SSE Engine Fixes from Skyrim SE for Skyrim VR
 
 Current working patches:
 
