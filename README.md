@@ -1,2 +1,7 @@
 # EngineFixesVR
-Port of EngineFixesSSE for Skyrim SE
+Port of EngineFixesSSE frm Skyrim SE for Skyrim VR
+
+Current working patches:
+
+Max STDIO patch
+Enabled AchievementsWithMods
