@@ -70,6 +70,7 @@ extern "C" {
 			return false;
 		}
 
+		//Sleep(10000);
 		auto messaging = SKSE::GetMessagingInterface();
 
 		if (!messaging->RegisterListener("SKSE", MessageHandler))
@@ -77,8 +78,19 @@ extern "C" {
 			return false;
 		}
 
+		if (config::verboseLogging)
+		{
+			_MESSAGE("enabling verbose logging");
+			SKSE::Logger::SetPrintLevel(SKSE::Logger::Level::kVerboseMessage);
+			SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kVerboseMessage);
+		}
+
 		std::uintptr_t base = REL::Module::BaseAddr();
 		_MESSAGE("baseaddr = %016I64X", base);
+
+		REL::Offset<std::uint32_t*> testit(base + 0x194230);     // SSE has this offset as 0x194230
+		_MESSAGE("testit = %016I64X", testit.GetAddress());
+		_MESSAGE("testit = %016I64X", testit.GetOffset());
 
 		patches::PatchAll();
 

@@ -9,14 +9,16 @@
 
 namespace patches
 {
+    std::uintptr_t baseAddr = REL::Module::BaseAddr();
+
     typedef void (*UpdateBlockVisibility_)(RE::BGSDistantTreeBlock* data);
-    REL::Offset<UpdateBlockVisibility_> UpdateBlockVisibility_orig(UpdateBlockVisibility_orig_offset);
+    REL::Offset<UpdateBlockVisibility_> UpdateBlockVisibility_orig(baseAddr + 0x4b80a0);    // 4a8090 in SSE
 
     typedef uint16_t (*Float2Half_)(float f);
-    REL::Offset<Float2Half_> Float2Half(Float2Half_offset);
+    REL::Offset<Float2Half_> Float2Half(baseAddr + 0xd8b6b0);    // was d426f0
 
     typedef RE::TESForm* (*_LookupFormByID)(uint32_t id);
-    REL::Offset<_LookupFormByID> LookupFormByID(LookupFormByID_offset);
+    REL::Offset<_LookupFormByID> LookupFormByID(baseAddr + 0x1a3f60);    // was 194230
 
     tbb::concurrent_hash_map<uint32_t, RE::TESObjectREFR*> referencesFormCache;
 

@@ -6,11 +6,10 @@ namespace patches
     {
  /*       if (config::patchDisableChargenPrecache)
             PatchDisableChargenPrecache();
-
+            */
         if (config::patchFormCaching)
             PatchFormCaching();
 
- */
         if (config::patchEnableAchievementsWithMods)
             PatchEnableAchievementsWithMods();
 

@@ -414,9 +414,9 @@ namespace SKSE
 			std::uint8_t opcode;  // 0 - 0xE9/0xE8
 			std::int32_t disp;	  // 1
 		};
-		STATIC_ASSERT(offsetof(SrcAssembly, opcode) == 0x0);
-		STATIC_ASSERT(offsetof(SrcAssembly, disp) == 0x1);
-		STATIC_ASSERT(sizeof(SrcAssembly) == 0x5);
+		//STATIC_ASSERT(offsetof(SrcAssembly, opcode) == 0x0);
+		//STATIC_ASSERT(offsetof(SrcAssembly, disp) == 0x1);
+		//STATIC_ASSERT(sizeof(SrcAssembly) == 0x5);
 
 		// FF /4
 		// JMP r/m64
@@ -428,11 +428,11 @@ namespace SKSE
 			std::int32_t disp;	 // 2 - 0x00000000
 			std::uint64_t addr;	 // 6 - [rip]
 		};
-		STATIC_ASSERT(offsetof(TrampolineAssembly, jmp) == 0x0);
-		STATIC_ASSERT(offsetof(TrampolineAssembly, modrm) == 0x1);
-		STATIC_ASSERT(offsetof(TrampolineAssembly, disp) == 0x2);
-		STATIC_ASSERT(offsetof(TrampolineAssembly, addr) == 0x6);
-		STATIC_ASSERT(sizeof(TrampolineAssembly) == 0xE);
+		//STATIC_ASSERT(offsetof(TrampolineAssembly, jmp) == 0x0);
+		//STATIC_ASSERT(offsetof(TrampolineAssembly, modrm) == 0x1);
+		//STATIC_ASSERT(offsetof(TrampolineAssembly, disp) == 0x2);
+		//STATIC_ASSERT(offsetof(TrampolineAssembly, addr) == 0x6);
+		//STATIC_ASSERT(sizeof(TrampolineAssembly) == 0xE);
 #pragma pack(pop)
 
 		auto mem = StartAlloc<TrampolineAssembly>();
@@ -475,10 +475,10 @@ namespace SKSE
 			std::uint8_t modrm;	  // 1 - 0x25/0x15
 			std::int32_t disp;	  // 2
 		};
-		STATIC_ASSERT(offsetof(Assembly, opcode) == 0x0);
-		STATIC_ASSERT(offsetof(Assembly, modrm) == 0x1);
-		STATIC_ASSERT(offsetof(Assembly, disp) == 0x2);
-		STATIC_ASSERT(sizeof(Assembly) == 0x6);
+		//STATIC_ASSERT(offsetof(Assembly, opcode) == 0x0);
+		//STATIC_ASSERT(offsetof(Assembly, modrm) == 0x1);
+		//STATIC_ASSERT(offsetof(Assembly, disp) == 0x2);
+		//STATIC_ASSERT(sizeof(Assembly) == 0x6);
 #pragma pack(pop)
 
 		auto mem = StartAlloc<std::uintptr_t>();

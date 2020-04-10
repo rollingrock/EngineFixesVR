@@ -36,6 +36,12 @@
     <ClCompile Include="utils.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="patches\formcaching.cpp">
+      <Filter>src\patches</Filter>
+    </ClCompile>
+    <ClCompile Include="patches\treelodreferencecaching.cpp">
+      <Filter>src\patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\version.h">
@@ -57,6 +63,9 @@
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="include\utils.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tbb\concurrent_hash_map.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

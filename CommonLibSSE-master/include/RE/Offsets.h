@@ -151,10 +151,22 @@ namespace RE
 
 		namespace BSReadWriteLock
 		{
-			static constexpr REL::ID LockForRead(static_cast<std::uint64_t>(66976));
-			static constexpr REL::ID LockForWrite(static_cast<std::uint64_t>(66977));
-			static constexpr REL::ID UnlockForRead(static_cast<std::uint64_t>(66982));
-			static constexpr REL::ID UnlockForWrite(static_cast<std::uint64_t>(66983));
+			/*
+			static constexpr REL::ID LockForRead(static_cast<std::uint64_t>(66976));   // SSE is c072d0    VR is c42150
+			static constexpr REL::ID LockForWrite(static_cast<std::uint64_t>(66977)); // SSE is c07350     VR is c421d0
+			static constexpr REL::ID UnlockForRead(static_cast<std::uint64_t>(66982)); // SSE is c07590    VR is c42410
+			static constexpr REL::ID UnlockForWrite(static_cast<std::uint64_t>(66983)); // SSE is c075a0   VR is c42420
+			*/
+			//static constexpr uintptr_t LockForRead = 0xc42150;   // SSE is c072d0    VR is c42150
+			//static constexpr uintptr_t LockForWrite = 0xc421d0; // SSE is c07350     VR is c421d0
+			//static constexpr uintptr_t UnlockForRead = 0xc42410; // SSE is c07590    VR is c42410
+			//static constexpr uintptr_t UnlockForWrite = 0xc42420; // SSE is c075a0   VR is c42420
+
+			static constexpr REL::Off2Loc LockForRead(static_cast<std::uint64_t>(0xc42150));
+			static constexpr REL::Off2Loc LockForWrite(static_cast<std::uint64_t>(0xc421d0));
+
+			static constexpr REL::Off2Loc UnlockForRead(static_cast<std::uint64_t>(0xc42410));
+			static constexpr REL::Off2Loc UnlockForWrite(static_cast<std::uint64_t>(0xc42420));
 		}
 
 
@@ -279,9 +291,14 @@ namespace RE
 
 		namespace CRC32Calculator
 		{
-			static constexpr REL::ID SizeOf32(static_cast<std::uint64_t>(66963));
-			static constexpr REL::ID SizeOf64(static_cast<std::uint64_t>(66964));
-			static constexpr REL::ID SizeOfSize(static_cast<std::uint64_t>(66962));
+			//static constexpr REL::ID SizeOf32(static_cast<std::uint64_t>(66963));   // VR is c41370
+			//static constexpr REL::ID SizeOf64(static_cast<std::uint64_t>(66964));   // VR is c413f0
+			//static constexpr REL::ID SizeOfSize(static_cast<std::uint64_t>(66962));  // VR is c41310
+
+			static constexpr REL::Off2Loc SizeOf32(static_cast<std::uint64_t>(0xc41370));
+			static constexpr REL::Off2Loc SizeOf64(static_cast<std::uint64_t>(0xc413f0));
+			static constexpr REL::Off2Loc SizeOfSize(static_cast<std::uint64_t>(0xc41310));
+
 		}
 
 

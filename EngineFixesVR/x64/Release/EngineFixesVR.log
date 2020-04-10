@@ -1,9 +1,9 @@
-﻿  miscpatches.cpp
+﻿  formcaching.cpp
      Creating library C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.lib and object C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.exp
   Generating code
-  0 of 2655 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  3 of 3650 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   EngineFixesVR.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.dll
           1 file(s) copied.

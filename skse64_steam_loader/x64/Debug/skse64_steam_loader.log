@@ -1,6 +1,1 @@
 ﻿  skse64_steam_loader.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\sksevr_steam_loader.dll
-  Installing Steam Loader...
-  Access is denied.
-          0 file(s) copied.
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(149,5): error MSB3073: The command "copy "C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\sksevr_steam_loader.dll" "\sksevr_steam_loader.dll" /Y
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(149,5): error MSB3073: :VCEnd" exited with code 1.

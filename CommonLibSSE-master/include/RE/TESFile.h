@@ -127,5 +127,5 @@ namespace RE
 		UInt32						  pad4BC;							// 4BC
 		void*						  unk4C0;							// 4C0
 	};
-	STATIC_ASSERT(sizeof(TESFile) == 0x4C8);
+//	STATIC_ASSERT(sizeof(TESFile) == 0x4C8);
 }

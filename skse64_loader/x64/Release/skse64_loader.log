@@ -1,7 +1,1 @@
-﻿  main.cpp
-  Options.cpp
-  Generating code
-  Previous IPDB not found, fall back to full compilation.
-  All 251 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
-  Finished generating code
-  skse64_loader.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\sksevr_loader.exe
+﻿  skse64_loader.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\sksevr_loader.exe

@@ -4,7 +4,7 @@
 
 namespace config
 {
-    bool verboseLogging = false;
+    bool verboseLogging = true;
     bool cleanSKSECosaves = true;
 
     // Patches

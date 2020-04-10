@@ -789,6 +789,22 @@ namespace REL
 		std::uint64_t _id;
 	};
 
+	class Off2Loc
+	{
+	public:
+		constexpr Off2Loc() : _offset(0)
+		{
+		}
+
+		constexpr Off2Loc(uint64_t a_offset) : _offset(a_offset)
+		{
+		}
+
+		[[nodiscard]] std::uint64_t GetAddress() const;
+
+	private:
+		uint64_t _offset;
+	};
 
 	// relocates the given offset in the exe and reinterprets it as the given type
 	template <class T>

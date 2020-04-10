@@ -94,9 +94,8 @@ namespace RE
 	private:
 		// members
 		volatile UInt32 _writerThread;	// 0
-		volatile UInt32 _lock;			// 4
+		volatile UInt32 _lock;
 	};
-	STATIC_ASSERT(sizeof(BSReadWriteLock) == 0x8);
 
 
 	class BSSpinLockGuard

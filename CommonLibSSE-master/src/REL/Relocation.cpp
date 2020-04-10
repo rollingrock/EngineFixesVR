@@ -536,6 +536,10 @@ namespace REL
 		return IDDatabase::IDToOffset(_id);
 	}
 
+	std::uint64_t Off2Loc::GetAddress() const
+	{
+		return REL::Module::BaseAddr() + _offset;
+	}
 
 	VTable::VTable(const char* a_name, std::uint32_t a_offset) :
 		_address(0xDEADBEEF)
