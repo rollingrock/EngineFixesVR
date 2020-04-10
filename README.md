@@ -6,3 +6,5 @@ Current working patches:
 Max STDIO patch
 
 Enabled AchievementsWithMods
+
+Form Caching
