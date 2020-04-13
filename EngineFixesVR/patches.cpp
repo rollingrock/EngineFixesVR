@@ -28,8 +28,8 @@ namespace patches
         //if (config::patchSleepWaitTime)
         //    PatchSleepWaitTime();
 
-        //if (config::patchTreeLODReferenceCaching && config::patchFormCaching)
-        //    PatchTreeLODReferenceCaching();
+        if (config::patchTreeLODReferenceCaching && config::patchFormCaching)
+            PatchTreeLODReferenceCaching();
 
         //if (config::patchWaterflowAnimation)
         //    PatchWaterflowAnimation();

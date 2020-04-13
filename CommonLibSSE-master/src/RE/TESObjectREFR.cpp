@@ -47,7 +47,7 @@ namespace RE
 	TESObjectREFR* TESObjectREFR::FindReferenceFor3D(NiAVObject* a_object3D)
 	{
 		using func_t = decltype(&TESObjectREFR::FindReferenceFor3D);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::FindReferenceFor3D);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::FindReferenceFor3D.GetAddress());
 		return func(a_object3D);
 	}
 
@@ -163,7 +163,7 @@ namespace RE
 	const char* TESObjectREFR::GetDisplayFullName()
 	{
 		using func_t = decltype(&TESObjectREFR::GetDisplayFullName);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::GetDisplayFullName);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::GetDisplayFullName.GetAddress());
 		return func(this);
 	}
 
@@ -361,7 +361,7 @@ namespace RE
 	REFR_LOCK* TESObjectREFR::GetLock() const
 	{
 		using func_t = decltype(&TESObjectREFR::GetLock);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::GetLock);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::GetLock.GetAddress());
 		return func(this);
 	}
 
@@ -390,7 +390,7 @@ namespace RE
 	TESForm* TESObjectREFR::GetOwner() const
 	{
 		using func_t = decltype(&TESObjectREFR::GetOwner);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::GetOwner);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::GetOwner.GetAddress());
 		return func(this);
 	}
 
@@ -428,7 +428,7 @@ namespace RE
 	UInt32 TESObjectREFR::GetStealValue(const InventoryEntryData* a_entryData, UInt32 a_numItems, bool a_useMult) const
 	{
 		using func_t = decltype(&Actor::GetStealValue);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::GetStealValue);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::GetStealValue.GetAddress());
 		return func(this, a_entryData, a_numItems, a_useMult);
 	}
 
@@ -470,7 +470,7 @@ namespace RE
 	void TESObjectREFR::InitChildActivates(TESObjectREFR* a_activator)
 	{
 		using func_t = decltype(&TESObjectREFR::InitChildActivates);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::InitChildActivates);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::InitChildActivates.GetAddress());
 		return func(this, a_activator);
 	}
 
@@ -478,7 +478,7 @@ namespace RE
 	bool TESObjectREFR::InitInventoryIfRequired(bool a_skipExtra)
 	{
 		using func_t = decltype(&TESObjectREFR::InitInventoryIfRequired);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::InitInventoryIfRequired);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::InitInventoryIfRequired.GetAddress());
 		return func(this, a_skipExtra);
 	}
 
@@ -499,7 +499,7 @@ namespace RE
 	bool TESObjectREFR::IsCrimeToActivate()
 	{
 		using func_t = decltype(&TESObjectREFR::IsCrimeToActivate);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::IsCrimeToActivate);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::IsCrimeToActivate.GetAddress());
 		return func(this);
 	}
 
@@ -685,7 +685,7 @@ namespace RE
 	void TESObjectREFR::MoveTo_Impl(const ObjectRefHandle& a_targetHandle, TESObjectCELL* a_targetCell, TESWorldSpace* a_selfWorldSpace, const NiPoint3& a_position, const NiPoint3& a_rotation)
 	{
 		using func_t = decltype(&TESObjectREFR::MoveTo_Impl);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::MoveTo);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::MoveTo.GetAddress());
 		return func(this, a_targetHandle, a_targetCell, a_selfWorldSpace, a_position, a_rotation);
 	}
 
@@ -693,7 +693,7 @@ namespace RE
 	void TESObjectREFR::PlayAnimation_Impl(NiControllerManager* a_manager, NiControllerSequence* a_toSeq, NiControllerSequence* a_fromSeq, bool a_arg4)
 	{
 		using func_t = decltype(&TESObjectREFR::PlayAnimation_Impl);
-		REL::Offset<func_t> func(Offset::TESObjectREFR::PlayAnimation);
+		REL::Offset<func_t> func(Offset::TESObjectREFR::PlayAnimation.GetAddress());
 		return func(this, a_manager, a_toSeq, a_fromSeq, a_arg4);
 	}
 }

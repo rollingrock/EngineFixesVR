@@ -8,7 +8,7 @@ namespace RE
 {
 	INIPrefSettingCollection* INIPrefSettingCollection::GetSingleton()
 	{
-		REL::Offset<INIPrefSettingCollection**> singleton(Offset::INIPrefSettingCollection::Singleton);
+		REL::Offset<INIPrefSettingCollection**> singleton(Offset::INIPrefSettingCollection::Singleton.GetAddress());
 		return *singleton;
 	}
 }

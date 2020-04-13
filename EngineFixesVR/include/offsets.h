@@ -22,7 +22,7 @@ constexpr REL::ID ChargenCacheClearFunction_offset(51509);
 */
 // Enable Achievements With Mods
 // 48 83 EC 28 C6 44 24 ? ?
-constexpr uintptr_t AchievementModsEnabledFunction_offset = 0x17FB90;
+constexpr REL::Off2Loc AchievementModsEnabledFunction_offset(static_cast<std::uint64_t>(0x17FB90));
 /*
 // Form Caching
 constexpr REL::ID LookupFormByID_offset(14461);

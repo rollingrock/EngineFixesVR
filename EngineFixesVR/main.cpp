@@ -6,6 +6,7 @@
 
 #include "SKSE/API.h"
 #include "SKSE/Interfaces.h"
+#include "skse64/GameData.h"
 
 #include "patches.h"
 
@@ -17,6 +18,12 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 	case SKSE::MessagingInterface::kDataLoaded:
 		{
 		_MESSAGE("Message kDataLoaded");
+		DataHandler* dh = DataHandler::GetSingleton();
+
+		_MESSAGE("dh = %016I64X", dh);
+		_MESSAGE("dh->modList.loadedMods = %016I64X", &dh->modList.loadedModCount);
+
+		_VMESSAGE("Loaded Mods = %x", dh->modList.loadedModCount);
 		}
 		break;
 	default:

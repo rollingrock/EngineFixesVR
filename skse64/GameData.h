@@ -160,9 +160,9 @@ STATIC_ASSERT(offsetof(ModInfo, formInfo) == 0x284);
 STATIC_ASSERT(offsetof(ModInfo, subRecord) == 0x29C);
 STATIC_ASSERT(offsetof(ModInfo, fileOffset) == 0x2A8);
 STATIC_ASSERT(offsetof(ModInfo, fileData) == 0x2EC);
-STATIC_ASSERT(offsetof(ModInfo, numRefMods) == 0x460);
-STATIC_ASSERT(offsetof(ModInfo, author) == 0x480);
-STATIC_ASSERT(sizeof(ModInfo) == 0x4C8);
+// STATIC_ASSERT(offsetof(ModInfo, numRefMods) == 0x460);
+// STATIC_ASSERT(offsetof(ModInfo, author) == 0x480);
+// STATIC_ASSERT(sizeof(ModInfo) == 0x4C8);
 
 // 810
 struct ModList

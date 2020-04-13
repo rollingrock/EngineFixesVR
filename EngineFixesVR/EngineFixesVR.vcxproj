@@ -180,12 +180,14 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BGSDistantTreeBlock_VR.h" />
     <ClInclude Include="include\config.h" />
     <ClInclude Include="include\INIReader.h" />
     <ClInclude Include="include\offsets.h" />
     <ClInclude Include="include\patches.h" />
     <ClInclude Include="include\Simpleini.h" />
     <ClInclude Include="include\tbb\concurrent_hash_map.h" />
+    <ClInclude Include="include\TreeLOD.h" />
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\version.h" />
   </ItemGroup>

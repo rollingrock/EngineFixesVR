@@ -68,6 +68,12 @@
     <ClInclude Include="include\tbb\concurrent_hash_map.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\BGSDistantTreeBlock_VR.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TreeLOD.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def">

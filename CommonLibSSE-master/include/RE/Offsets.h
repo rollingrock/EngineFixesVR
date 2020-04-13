@@ -513,13 +513,15 @@ namespace RE
 
 		namespace INIPrefSettingCollection
 		{
-			static constexpr REL::ID Singleton(static_cast<std::uint64_t>(523673));
+		//	static constexpr REL::ID Singleton(static_cast<std::uint64_t>(523673));   // 2f6ba48   VR 30c3b18
+			static constexpr REL::Off2Loc Singleton(static_cast<std::uint64_t>(0x30c3b18));   // 2f6ba48   VR 30c3b18
 		}
 
 
 		namespace INISettingCollection
 		{
-			static constexpr REL::ID Singleton(static_cast<std::uint64_t>(524557));
+	//		static constexpr REL::ID Singleton(static_cast<std::uint64_t>(524557));   // 301d758  VR 3175fe0
+			static constexpr REL::Off2Loc Singleton(static_cast<std::uint64_t>(0x3175fe0));   // 301d758  VR 3175fe0
 		}
 
 
@@ -831,8 +833,11 @@ namespace RE
 
 		namespace TESDataHandler
 		{
-			static constexpr REL::ID LoadScripts(static_cast<std::uint64_t>(13657));
-			static constexpr REL::ID Singleton(static_cast<std::uint64_t>(514141));
+			//static constexpr REL::ID LoadScripts(static_cast<std::uint64_t>(13657));  // SE 1713d0   VR 181b80
+			//static constexpr REL::ID Singleton(static_cast<std::uint64_t>(514141));   // SE 1ebe428  VR 1f82ad8
+
+			static constexpr REL::Off2Loc LoadScripts(static_cast<std::uint64_t>(0x181b80));  // SE 1713d0   VR 181b80
+			static constexpr REL::Off2Loc Singleton(static_cast<std::uint64_t>(0x1f82ad8));   // SE 1ebe428  VR 1f82ad8
 		}
 
 
@@ -885,16 +890,27 @@ namespace RE
 
 		namespace TESObjectREFR
 		{
-			static constexpr REL::ID InitChildActivates(static_cast<std::uint64_t>(19857));
-			static constexpr REL::ID GetDisplayFullName(static_cast<std::uint64_t>(19354));
-			static constexpr REL::ID GetLock(static_cast<std::uint64_t>(19818));
-			static constexpr REL::ID GetOwner(static_cast<std::uint64_t>(19789));
-			static constexpr REL::ID GetStealValue(static_cast<std::uint64_t>(15807));
-			static constexpr REL::ID FindReferenceFor3D(static_cast<std::uint64_t>(19323));
-			static constexpr REL::ID InitInventoryIfRequired(static_cast<std::uint64_t>(15800));
-			static constexpr REL::ID IsCrimeToActivate(static_cast<std::uint64_t>(19400));
-			static constexpr REL::ID MoveTo(static_cast<std::uint64_t>(56227));
-			static constexpr REL::ID PlayAnimation(static_cast<std::uint64_t>(14189));
+			//static constexpr REL::ID InitChildActivates(static_cast<std::uint64_t>(19857));    // 2a8cc0  VR 2ba430
+			//static constexpr REL::ID GetDisplayFullName(static_cast<std::uint64_t>(19354));    // 2961f0  VR 2a78f0
+			//static constexpr REL::ID GetLock(static_cast<std::uint64_t>(19818));               // 2a74c0  VR 2b8c30
+			//static constexpr REL::ID GetOwner(static_cast<std::uint64_t>(19789));              // 2a6670  VR 2b7de0
+			//static constexpr REL::ID GetStealValue(static_cast<std::uint64_t>(15807));         // 1d9080  VR 1e9c20
+			//static constexpr REL::ID FindReferenceFor3D(static_cast<std::uint64_t>(19323));    // 2945e0  VR 2a5cf0  - function has been updated for VR
+			//static constexpr REL::ID InitInventoryIfRequired(static_cast<std::uint64_t>(15800));  // 1d8d10  1e98b0
+			//static constexpr REL::ID IsCrimeToActivate(static_cast<std::uint64_t>(19400));     // 29a330  VR 2aba40
+			//static constexpr REL::ID MoveTo(static_cast<std::uint64_t>(56227));                // 9ae5c0  VR 9e90e0
+			//static constexpr REL::ID PlayAnimation(static_cast<std::uint64_t>(14189));         // 189e30  VR 199b60
+
+			static constexpr REL::Off2Loc InitChildActivates(static_cast<std::uint64_t>(0x2ba430));    // 2a8cc0  VR 2ba430
+			static constexpr REL::Off2Loc GetDisplayFullName(static_cast<std::uint64_t>(0x2a78f0));    // 2961f0  VR 2a78f0
+			static constexpr REL::Off2Loc GetLock(static_cast<std::uint64_t>(0x2b8c30));               // 2a74c0  VR 2b8c30
+			static constexpr REL::Off2Loc GetOwner(static_cast<std::uint64_t>(0x2b7de0));              // 2a6670  VR 2b7de0
+			static constexpr REL::Off2Loc GetStealValue(static_cast<std::uint64_t>(0x1e9c20));         // 1d9080  VR 1e9c20
+			static constexpr REL::Off2Loc FindReferenceFor3D(static_cast<std::uint64_t>(0x2a5cf0));    // 2945e0  VR 2a5cf0  - function has been updated for VR
+			static constexpr REL::Off2Loc InitInventoryIfRequired(static_cast<std::uint64_t>(0x1e98b0));  // 1d8d10  1e98b0
+			static constexpr REL::Off2Loc IsCrimeToActivate(static_cast<std::uint64_t>(0x2aba40));     // 29a330  VR 2aba40
+			static constexpr REL::Off2Loc MoveTo(static_cast<std::uint64_t>(0x9e90e0));                // 9ae5c0  VR 9e90e0
+			static constexpr REL::Off2Loc PlayAnimation(static_cast<std::uint64_t>(0x199b60));         // 189e30  VR 199b60
 		}
 
 

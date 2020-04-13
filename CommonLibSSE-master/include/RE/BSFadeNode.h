@@ -38,6 +38,11 @@ namespace RE
 		// members
 		float  unk128;		 // 128
 		float  unk12C;		 // 12C
+		uint64_t pad1;   // VR offset moved by 0x28
+		uint64_t pad2;
+		uint64_t pad3;
+		uint64_t pad4;
+		uint64_t pad5;
 		float  currentFade;	 // 130
 		UInt32 unk134;		 // 134
 		UInt32 unk138;		 // 138
@@ -53,5 +58,5 @@ namespace RE
 		UInt8  unk155;		 // 155
 		UInt16 unk156;		 // 156
 	};
-	STATIC_ASSERT(sizeof(BSFadeNode) == 0x158);
+	STATIC_ASSERT(sizeof(BSFadeNode) == 0x180);
 }
