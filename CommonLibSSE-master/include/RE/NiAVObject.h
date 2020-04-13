@@ -135,7 +135,8 @@ namespace RE
 		TESObjectREFR*				 userData;				   // 0F8
 		float						 fadeAmount;			   // 100
 		UInt32						 lastUpdatedFrameCounter;  // 104
-		UInt64						 unk108;				   // 108
+		UInt32						 unk108;				   // 108
+		Flag                         flagsVR;                  // 10C
 	};
 	STATIC_ASSERT(sizeof(NiAVObject) == 0x110);
 }

@@ -24,7 +24,7 @@ namespace RE
 {
 	bool NiAVObject::GetAppCulled() const
 	{
-		return (flags & Flag::kHidden) != Flag::kNone;
+		return (flagsVR & Flag::kHidden) != Flag::kNone;
 	}
 
 

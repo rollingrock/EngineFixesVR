@@ -7,6 +7,7 @@
 #include "tbb/concurrent_hash_map.h"
 
 #include "skse64/GameData.h"
+#include "skse64/NiObjects.h"
 
 #include "BGSDistantTreeBlock_VR.h"
 #include "TreeLOD.h"
