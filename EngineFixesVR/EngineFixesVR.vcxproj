@@ -172,6 +172,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
+    <ClCompile Include="fixes.cpp" />
+    <ClCompile Include="fixes\miscfixes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="miscpatches.cpp" />
     <ClCompile Include="patches.cpp" />
@@ -182,6 +184,7 @@
   <ItemGroup>
     <ClInclude Include="include\BGSDistantTreeBlock_VR.h" />
     <ClInclude Include="include\config.h" />
+    <ClInclude Include="include\fixes.h" />
     <ClInclude Include="include\INIReader.h" />
     <ClInclude Include="include\offsets.h" />
     <ClInclude Include="include\patches.h" />

@@ -19,6 +19,9 @@
     <Filter Include="src\patches">
       <UniqueIdentifier>{2ba47870-2709-4dab-bd22-2f2757a1465c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\fixes">
+      <UniqueIdentifier>{47d82c51-bfcc-4078-83dd-f7a947cb4e5e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="patches\treelodreferencecaching.cpp">
       <Filter>src\patches</Filter>
+    </ClCompile>
+    <ClCompile Include="fixes.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="fixes\miscfixes.cpp">
+      <Filter>src\fixes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +81,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\TreeLOD.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\fixes.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

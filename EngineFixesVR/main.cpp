@@ -9,6 +9,7 @@
 #include "skse64/GameData.h"
 
 #include "patches.h"
+#include "fixes.h"
 
 #include "version.h"  // VERSION_VERSTRING, VERSION_MAJOR
 
@@ -100,6 +101,8 @@ extern "C" {
 		_MESSAGE("testit = %016I64X", testit.GetOffset());
 
 		patches::PatchAll();
+
+		fixes::PatchAll();
 
 		_MESSAGE("[MESSAGE] EngineFixes loaded");
 		return true;

@@ -360,8 +360,10 @@ namespace REL
 		}
 
 		try {
-			IStream input(file);
-			return DoLoad(input, a_version);
+		//	IStream input(file);
+			//return DoLoad(input, a_version);
+			return true;
+
 		} catch (std::exception& e) {
 			_ERROR("%s", e.what());
 			assert(false);
