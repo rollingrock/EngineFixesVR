@@ -300,7 +300,7 @@ namespace fixes
                     push(rdx);
                     mov(rax, a_ambientSpecularAndFresnel);  // xmmword_1E3403C
                     movups(xmm0, ptr[rax]);
-                    mov(rax, qword[rsp + 0x170 - 0x120 + 0x10]);  // PixelShader
+                    mov(rax, qword[rsp + 0x170 - 0x120 + 0x8]);  // PixelShader  // was 0x10 instead of 0x8.  Seems pixelshader is now rsp+0x58 but not entirely sure.   Looks right in reclass
                     movzx(edx, byte[rax + 0x46]);                 // m_ConstantOffsets 0x6 (AmbientSpecularTintAndFresnelPower)
                     mov(rax, ptr[rdi + 8]);                       // m_PerGeometry buffer (copied from SetupGeometry)   // VR is using RDI not R15
                     movups(ptr[rax + rdx * 4], xmm0);             // m_PerGeometry buffer offset 0x6
@@ -317,6 +317,7 @@ namespace fixes
             Patch patch(ambientSpecularAndFresnel.GetAddress(), addAmbientSpecularToSetupGeometry.GetAddress());
             patch.ready();
 
+            _VMESSAGE("specularandfresnel = %016I64X", addAmbientSpecularToSetupGeometry.GetAddress());
             auto trampoline = SKSE::GetTrampoline();
             trampoline->Write5Branch(addAmbientSpecularToSetupGeometry.GetAddress(), reinterpret_cast<std::uintptr_t>(patch.getCode()));
         }
