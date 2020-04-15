@@ -6,6 +6,12 @@
 namespace fixes
 {
     bool PatchMemoryAccessErrors();
+    bool PatchLipSync();
+    bool PatchGHeapLeakDetectionCrash();
+    bool PatchCellInit();
+    bool PatchAnimationLoadSignedCrash();
+    bool PatchBSLightingAmbientSpecular();
+
 
     bool PatchAll();
 }

@@ -148,12 +148,189 @@ namespace fixes
 
 
 
+    class LipSyncPatch
+    {
+    public:
+        static void Install()
+        {
+            constexpr std::array<UInt8, 4> OFFSETS = {
+                0x1E,
+                0x3A,
+                0x9A,
+                0xD8
+            };
+            
+            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x201d80;   // SE is 1f12a0  VR is 201d80
+            for (auto& offset : OFFSETS)
+            {
+                SKSE::SafeWrite8(funcBase.GetAddress() + offset, 0xEB);  // jns -> jmp
+            }
+        }
+    };
+
+    bool PatchLipSync()
+    {
+        _VMESSAGE("- lip sync bug fix -");
+
+        LipSyncPatch::Install();
+
+        _VMESSAGE("- success -");
+        return true;
+    }
+
+    class GHeapLeakDetectionCrashPatch
+    {
+    public:
+        static void Install()
+        {
+            constexpr std::uintptr_t START = 0x4B;
+            constexpr std::uintptr_t END = 0x5C;
+            constexpr UInt8 NOP = 0x90;
+            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x105cbb0;   //SE is fffeb0  VR is 105cbb0
+
+            for (std::uintptr_t i = START; i < END; ++i)
+            {
+                SKSE::SafeWrite8(funcBase.GetAddress() + i, NOP);
+            }
+        }
+    };
+
+    bool PatchGHeapLeakDetectionCrash()
+    {
+        _VMESSAGE("- GHeap leak detection crash fix -");
+
+        GHeapLeakDetectionCrashPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
 
 
+    class CellInitPatch
+    {
+    public:
+        static void Install()
+        {
+            auto trampoline = SKSE::GetTrampoline();
+            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 273830;  // SE is 262290  VR is 273830
+            _GetLocation = trampoline->Write5CallEx(funcBase.GetAddress() + 0x110, GetLocation);
+        }
 
+    private:
+        static RE::BGSLocation* GetLocation(const RE::ExtraDataList* a_this)
+        {
+            auto cell = adjust_pointer<RE::TESObjectCELL>(a_this, -0x48);
+            auto loc = _GetLocation(a_this);
+            if (!cell->IsInitialized())
+            {
+                auto file = cell->GetFile();
+                auto formID = reinterpret_cast<RE::FormID>(loc);
+                RE::TESForm::AddCompileIndex(formID, file);
+                loc = RE::TESForm::LookupByID<RE::BGSLocation>(formID);
+            }
+            return loc;
+        }
 
+        static inline REL::Function<decltype(GetLocation)> _GetLocation;
+    };
 
+    bool PatchCellInit()
+    {
+        _VMESSAGE("- cell init fix -");
 
+        CellInitPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    class AnimationLoadSignedCrashPatch
+    {
+    public:
+        static void Install()
+        {
+            // Change "BF" to "B7"
+            REL::Offset<std::uintptr_t> target =  REL::Module::BaseAddr() + 0xba17a0 + 0x91;   // SE is b66930   VR is ba17a0
+            SKSE::SafeWrite8(target.GetAddress(), 0xB7);
+        }
+    };
+
+    bool PatchAnimationLoadSignedCrash()
+    {
+        _VMESSAGE("- animation load signed crash fix -");
+
+        AnimationLoadSignedCrashPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    class BSLightingAmbientSpecularPatch
+    {
+    public:
+        static void Install()
+        {
+            _VMESSAGE("nopping SetupMaterial case");
+
+            constexpr byte nop = 0x90;
+            constexpr uint8_t length = 0x20;
+
+            REL::Offset<std::uintptr_t> addAmbientSpecularToSetupGeometry = REL::Module::BaseAddr() + 0x1339bb9;   // SE is 12f2bb0  VR is 1338f60   0xBAD in SE goes to 1339bb9 which is offset 0xC59
+            REL::Offset<std::uintptr_t> ambientSpecularAndFresnel = REL::Module::BaseAddr() + 0x342317c;           // SE is 1e0dfcc  VR is 342317c
+            REL::Offset<std::uintptr_t> disableSetupMaterialAmbientSpecular = REL::Module::BaseAddr() + 0x1338400 + 0x713;               // SE is 12f2020  VR is 1338400
+
+            for (int i = 0; i < length; ++i)
+            {
+                SKSE::SafeWrite8(disableSetupMaterialAmbientSpecular.GetAddress() + i, nop);
+            }
+
+            _VMESSAGE("Adding SetupGeometry case");
+
+            struct Patch : SKSE::CodeGenerator
+            {
+                Patch(std::uintptr_t a_ambientSpecularAndFresnel, std::uintptr_t a_addAmbientSpecularToSetupGeometry) : SKSE::CodeGenerator()
+                {
+                    Xbyak::Label jmpOut;
+                    // hook: 0x130AB2D (in middle of SetupGeometry, right before if (rawTechnique & RAW_FLAG_SPECULAR), just picked a random place tbh
+                    // test
+                    test(dword[rbx + 0x94], 0x20000);  // RawTechnique & RAW_FLAG_AMBIENT_SPECULAR   :   VR is using RBX not R13
+                    jz(jmpOut);
+                    // ambient specular
+                    push(rax);
+                    push(rdx);
+                    mov(rax, a_ambientSpecularAndFresnel);  // xmmword_1E3403C
+                    movups(xmm0, ptr[rax]);
+                    mov(rax, qword[rsp + 0x170 - 0x120 + 0x10]);  // PixelShader
+                    movzx(edx, byte[rax + 0x46]);                 // m_ConstantOffsets 0x6 (AmbientSpecularTintAndFresnelPower)
+                    mov(rax, ptr[rdi + 8]);                       // m_PerGeometry buffer (copied from SetupGeometry)   // VR is using RDI not R15
+                    movups(ptr[rax + rdx * 4], xmm0);             // m_PerGeometry buffer offset 0x6
+                    pop(rdx);
+                    pop(rax);
+                    // original code
+                    L(jmpOut);
+                    test(dword[rbx + 0x94], 0x200);
+                    jmp(ptr[rip]);
+                    dq(a_addAmbientSpecularToSetupGeometry + 11);
+                }
+            };
+
+            Patch patch(ambientSpecularAndFresnel.GetAddress(), addAmbientSpecularToSetupGeometry.GetAddress());
+            patch.ready();
+
+            auto trampoline = SKSE::GetTrampoline();
+            trampoline->Write5Branch(addAmbientSpecularToSetupGeometry.GetAddress(), reinterpret_cast<std::uintptr_t>(patch.getCode()));
+        }
+    };
+
+    bool PatchBSLightingAmbientSpecular()
+    {
+        _VMESSAGE("BSLightingAmbientSpecular fix");
+
+        BSLightingAmbientSpecularPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
 
 }
 

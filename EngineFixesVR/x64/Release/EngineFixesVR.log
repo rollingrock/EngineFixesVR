@@ -1,10 +1,9 @@
-﻿  miscfixes.cpp
-fixes\miscfixes.cpp(72,28): warning C4834: discarding return value of function with 'nodiscard' attribute
+﻿  fixes.cpp
      Creating library C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.lib and object C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.exp
   Generating code
-  5 of 4155 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  0 of 4234 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    4 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   EngineFixesVR.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.dll
           1 file(s) copied.
