@@ -11,7 +11,7 @@ namespace RE
 {
 	Calendar* Calendar::GetSingleton()
 	{
-		REL::Offset<Calendar**> singleton(Offset::Calendar::Singleton);
+		REL::Offset<Calendar**> singleton(Offset::Calendar::Singleton.GetAddress());
 		return *singleton;
 	}
 

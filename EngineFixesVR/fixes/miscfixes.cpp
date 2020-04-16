@@ -333,5 +333,241 @@ namespace fixes
         return true;
     }
 
+
+    class CalendarSkippingPatch
+    {
+    public:
+        static void Install()
+        {
+            constexpr std::size_t CAVE_START = 0x17A;
+            constexpr std::size_t CAVE_SIZE = 0x15;
+
+            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x5ad8f0;  // SE is 5a6230  VR is 5ad8f0
+
+            struct Patch : SKSE::CodeGenerator
+            {
+                Patch(std::uintptr_t a_addr) : SKSE::CodeGenerator(CAVE_SIZE)
+                {
+                    Xbyak::Label jmpLbl;
+
+                    movaps(xmm0, xmm1);
+                    jmp(ptr[rip + jmpLbl]);
+
+                    L(jmpLbl);
+                    dq(a_addr);
+                }
+            };
+
+            Patch patch(unrestricted_cast<std::uintptr_t>(AdvanceTime));
+            patch.ready();
+
+            for (std::size_t i = 0; i < patch.getSize(); ++i)
+            {
+                SKSE::SafeWrite8(funcBase.GetAddress() + CAVE_START + i, patch.getCode()[i]);
+            }
+        }
+
+    private:
+        static void AdvanceTime(float a_secondsPassed)
+        {
+            auto time = RE::Calendar::GetSingleton();
+            float hoursPassed = (a_secondsPassed * time->timeScale->value / (60.0F * 60.0F)) + time->gameHour->value - 24.0F;
+            if (hoursPassed > 24.0)
+            {
+                do
+                {
+                    time->midnightsPassed += 1;
+                    time->rawDaysPassed += 1.0F;
+                    hoursPassed -= 24.0F;
+                } while (hoursPassed > 24.0F);
+                time->gameDaysPassed->value = (hoursPassed / 24.0F) + time->rawDaysPassed;
+            }
+        }
+    };
+
+    bool PatchCalendarSkipping()
+    {
+        _VMESSAGE("- calendar skipping fix -");
+
+        CalendarSkippingPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    class ConjurationEnchantAbsorbsPatch
+    {
+    public:
+        static void Install()
+        {
+            REL::Offset<std::uintptr_t> vtbl = REL::Module::BaseAddr() + 0x1598b30;     // SE is 15217e0   VR is 1598b30
+            _DisallowsAbsorbReflection = vtbl.WriteVFunc(0x5E, DisallowsAbsorbReflection);
+        }
+
+    private:
+        static bool DisallowsAbsorbReflection(RE::EnchantmentItem* a_this)
+        {
+            using Archetype = RE::EffectArchetypes::ArchetypeID;
+            for (auto& effect : a_this->effects)
+            {
+                if (effect->baseEffect->HasArchetype(Archetype::kSummonCreature))
+                {
+                    return true;
+                }
+            }
+            return _DisallowsAbsorbReflection(a_this);
+        }
+
+        using DisallowsAbsorbReflection_t = decltype(&RE::EnchantmentItem::GetNoAbsorb);  // 5E
+        static inline REL::Function<DisallowsAbsorbReflection_t> _DisallowsAbsorbReflection;
+    };
+
+    bool PatchConjurationEnchantAbsorbs()
+    {
+        _VMESSAGE("- enchantment absorption on staff summons fix -");
+
+        ConjurationEnchantAbsorbsPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    class EquipShoutEventSpamPatch
+    {
+    public:
+        static void Install()
+        {
+            constexpr std::uintptr_t BRANCH_OFF = 0x17A;
+            constexpr std::uintptr_t SEND_EVENT_BEGIN = 0x18A;
+            constexpr std::uintptr_t SEND_EVENT_END = 0x236;
+            constexpr std::size_t EQUIPPED_SHOUT = offsetof(RE::Actor, selectedPower);
+            constexpr UInt32 BRANCH_SIZE = 5;
+            constexpr UInt32 CODE_CAVE_SIZE = 16;
+            constexpr UInt32 DIFF = CODE_CAVE_SIZE - BRANCH_SIZE;
+            constexpr UInt8 NOP = 0x90;
+
+            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x63b290;  // SE is 6323c0 VR is 63b290
+
+            struct Patch : SKSE::CodeGenerator
+            {
+                Patch(std::uintptr_t a_funcBase) : SKSE::CodeGenerator()
+                {
+                    Xbyak::Label exitLbl;
+                    Xbyak::Label exitIP;
+                    Xbyak::Label sendEvent;
+
+                    // r14 = Actor*
+                    // rdi = TESShout*
+
+                    cmp(ptr[r14 + EQUIPPED_SHOUT], rdi);  // if (actor->equippedShout != shout)
+                    je(exitLbl);
+                    mov(ptr[r14 + EQUIPPED_SHOUT], rdi);  // actor->equippedShout = shout;
+                    test(rdi, rdi);                       // if (shout)
+                    jz(exitLbl);
+                    jmp(ptr[rip + sendEvent]);
+
+                    L(exitLbl);
+                    jmp(ptr[rip + exitIP]);
+
+                    L(exitIP);
+                    dq(a_funcBase + SEND_EVENT_END);
+
+                    L(sendEvent);
+                    dq(a_funcBase + SEND_EVENT_BEGIN);
+                }
+            };
+
+            Patch patch(funcBase.GetAddress());
+            patch.finalize();
+
+            auto trampoline = SKSE::GetTrampoline();
+            trampoline->Write5Branch(funcBase.GetAddress() + BRANCH_OFF, reinterpret_cast<std::uintptr_t>(patch.getCode()));
+
+            for (UInt32 i = 0; i < DIFF; ++i)
+            {
+                SKSE::SafeWrite8(funcBase.GetAddress() + BRANCH_OFF + BRANCH_SIZE + i, NOP);
+            }
+        }
+    };
+
+    bool PatchEquipShoutEventSpam()
+    {
+        _VMESSAGE("- equip shout event spam fix - ");
+
+        EquipShoutEventSpamPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    class PerkFragmentIsRunningPatch
+    {
+    public:
+        static void Install()
+        {
+            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x2ecb20;  // SE is 2db610 VR is 2ecb20
+            auto trampoline = SKSE::GetTrampoline();
+            trampoline->Write5Call(funcBase.GetAddress() + 0x22, IsRunning);
+        }
+
+    private:
+        static bool IsRunning(RE::Actor* a_this)
+        {
+            return a_this ? a_this->IsRunning() : false;
+        }
+    };
+
+    bool PatchPerkFragmentIsRunning()
+    {
+        _VMESSAGE("- perk fragment IsRunning fix -");
+
+        PerkFragmentIsRunningPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    class RemovedSpellBookPatch
+    {
+    public:
+        static void Install()
+        {
+            REL::Offset<std::uintptr_t> vtbl = REL::Module::BaseAddr() + 0x15c9e68;   // SE is 15592b8  VR is 15c9e68
+            _LoadGame = vtbl.WriteVFunc(0xF, LoadGame);
+        }
+
+    private:
+        static void LoadGame(RE::TESObjectBOOK* a_this, RE::BGSLoadFormBuffer* a_buf)
+        {
+            using Flag = RE::OBJ_BOOK::Flag;
+
+            _LoadGame(a_this, a_buf);
+
+            if (a_this->data.teaches.actorValueToAdvance == RE::ActorValue::kNone)
+            {
+                if (a_this->TeachesSkill())
+                {
+                    a_this->data.flags &= ~Flag::kAdvancesActorValue;
+                }
+
+                if (a_this->TeachesSpell())
+                {
+                    a_this->data.flags &= ~Flag::kTeachesSpell;
+                }
+            }
+        }
+
+        static inline REL::Function<decltype(&RE::TESObjectBOOK::LoadGame)> _LoadGame;  // 0xF
+    };
+
+    bool PatchRemovedSpellBook()
+    {
+        _VMESSAGE("- removed spell book fix -");
+
+        RemovedSpellBookPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
 }
 

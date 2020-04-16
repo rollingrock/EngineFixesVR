@@ -11,7 +11,11 @@ namespace fixes
     bool PatchCellInit();
     bool PatchAnimationLoadSignedCrash();
     bool PatchBSLightingAmbientSpecular();
-
+    bool PatchCalendarSkipping();
+    bool PatchConjurationEnchantAbsorbs();
+    bool PatchEquipShoutEventSpam();
+    bool PatchPerkFragmentIsRunning();
+    bool PatchRemovedSpellBook();
 
     bool PatchAll();
 }

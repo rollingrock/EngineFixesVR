@@ -259,7 +259,9 @@ namespace RE
 
 		namespace Calendar
 		{
-			static constexpr REL::ID Singleton(static_cast<std::uint64_t>(514287));
+//			static constexpr REL::ID Singleton(static_cast<std::uint64_t>(514287));
+			static constexpr REL::Off2Loc Singleton(static_cast<std::uint64_t>(0x1f85108));
+
 		}
 
 
