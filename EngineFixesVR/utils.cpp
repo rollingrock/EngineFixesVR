@@ -11,13 +11,13 @@
 #include <system_error>
 #include <vector>
 
-//#include "RE/Skyrim.h"
+#include "RE/Skyrim.h"
 #include "REL/Relocation.h"
 #include "SKSE/SafeWrite.h"
 #include "SKSE/Version.h"
 
 #include "utils.h"
-/*
+
 std::optional<std::filesystem::path> GetSavesPath()
 {
     wchar_t* buffer;
@@ -30,9 +30,11 @@ std::optional<std::filesystem::path> GetSavesPath()
 
     std::filesystem::path path = mydocs.get();
     path /= "My Games";
-    path /= "Skyrim Special Edition";
+    path /= "Skyrim VR";
 
     auto sLocalSavePath = RE::GetINISetting("sLocalSavePath:General");
+    std::string str = sLocalSavePath->GetString();
+    _VMESSAGE("sLocalSavePath = %s", str.c_str());
     if (sLocalSavePath)
     {
         path /= sLocalSavePath->GetString();
@@ -112,6 +114,7 @@ bool CleanSKSECosaves()
     return true;
 }
 
+/*
 bool GetFileVersion(const char* path, VS_FIXEDFILEINFO* info, std::string* outProductName, std::string* outProductVersion)
 {
     bool result = false;
@@ -171,7 +174,7 @@ bool GetFileVersion(const char* path, VS_FIXEDFILEINFO* info, std::string* outPr
 
     return result;
 }
-
+*/
 bool VersionStrToInt(const std::string& verStr, UInt64* out)
 {
     UInt64 result = 0;
@@ -193,7 +196,7 @@ bool VersionStrToInt(const std::string& verStr, UInt64* out)
 
     return true;
 }
-*/
+
 uintptr_t PatchIAT(uintptr_t func, const char* dllName, const char* importName)
 {
     const auto addr = reinterpret_cast<std::uintptr_t>(GetIATAddr(REL::Module::BasePtr(), dllName, importName));

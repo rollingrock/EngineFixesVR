@@ -1,9 +1,9 @@
-﻿  config.cpp
+﻿  utils.cpp
      Creating library C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.lib and object C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.exp
   Generating code
-  618 of 4516 functions (13.7%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    69 functions had inline decision re-evaluated but remain unchanged
+  6 of 4786 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    5 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   EngineFixesVR.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.dll
           1 file(s) copied.

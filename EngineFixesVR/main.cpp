@@ -10,6 +10,7 @@
 
 #include "patches.h"
 #include "fixes.h"
+#include "utils.h"
 
 #include "version.h"  // VERSION_VERSTRING, VERSION_MAJOR
 
@@ -19,6 +20,13 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 	case SKSE::MessagingInterface::kDataLoaded:
 		{
 		_MESSAGE("Message kDataLoaded");
+
+		_MESSAGE("beginning post-load patches");
+		if (config::cleanSKSECosaves)
+			CleanSKSECosaves();
+
+		_MESSAGE("post-load patches complete");
+
 		DataHandler* dh = DataHandler::GetSingleton();
 
 		_VMESSAGE("dh->modList.loadedMods = %016I64X", &dh->modList.loadedModCount);
