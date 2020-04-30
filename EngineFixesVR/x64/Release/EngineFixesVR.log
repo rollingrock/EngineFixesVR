@@ -1,13 +1,9 @@
 ﻿  fixes.cpp
-  miscfixes.cpp
-fixes\miscfixes.cpp(72,28): warning C4834: discarding return value of function with 'nodiscard' attribute
-fixes\miscfixes.cpp(227,1): warning C4302: 'reinterpret_cast': truncation from 'RE::BGSLocation *' to 'RE::FormID'
-  main.cpp
      Creating library C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.lib and object C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.exp
   Generating code
-  778 of 4333 functions (18.0%) were compiled, the rest were copied from previous compilation.
-    48 functions were new in current compilation
-    138 functions had inline decision re-evaluated but remain unchanged
+  986 of 4314 functions (22.9%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    10 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   EngineFixesVR.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Release\EngineFixesVR.dll
           1 file(s) copied.

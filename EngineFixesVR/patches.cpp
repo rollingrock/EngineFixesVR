@@ -7,13 +7,10 @@ namespace patches
  /*       if (config::patchDisableChargenPrecache)
             PatchDisableChargenPrecache();
             */
-        if (config::patchFormCaching)
             PatchFormCaching();
 
-        if (config::patchEnableAchievementsWithMods)
             PatchEnableAchievementsWithMods();
 
-        if (config::patchMaxStdio)
             PatchMaxStdio();
 
         //if (config::patchRegularQuicksaves)
@@ -28,7 +25,6 @@ namespace patches
         //if (config::patchSleepWaitTime)
         //    PatchSleepWaitTime();
 
-        if (config::patchTreeLODReferenceCaching && config::patchFormCaching)
             PatchTreeLODReferenceCaching();
 
         //if (config::patchWaterflowAnimation)
