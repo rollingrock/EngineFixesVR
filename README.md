@@ -1,7 +1,7 @@
 # EngineFixesVR
 Port of SSE Engine Fixes from Skyrim SE for Skyrim VR
 
-Current working patches:
+# Current working patches:
 
 Max STDIO patch
 
@@ -11,7 +11,7 @@ Form Caching
 
 TreeLODReference Caching
 
-Current stable fixes:
+# Current stable fixes:
 
 PatchMemoryAccessErrors
 
@@ -31,5 +31,6 @@ PatchEquipShoutEventSpam
 
 PatchRemovedSpellBook
 
+# Install
 
 To install just drop in your SKSE/Plugins. 
