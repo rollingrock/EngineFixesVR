@@ -9,5 +9,27 @@ Enabled AchievementsWithMods
 
 Form Caching
 
+TreeLODReference Caching
+
+Current stable fixes:
+
+PatchMemoryAccessErrors
+
+PatchLipSync
+
+PatchGHeapLeakDetectionCrash
+
+PatchAnimationLoadSignedCrash
+
+PatchBSLightingAmbientSpecular
+
+PatchCalendarSkipping
+
+PatchConjurationEnchantAbsorbs
+
+PatchEquipShoutEventSpam
+
+PatchRemovedSpellBook
+
 
 To install just drop in your SKSE/Plugins. 
