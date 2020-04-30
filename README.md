@@ -33,7 +33,9 @@ PatchRemovedSpellBook
 
 # Install
 
-To install just drop in your SKSE/Plugins. 
+To install drop in your SKSE/Plugins the dll and ini file.   Configure the ini file if you want to disable features.
+
+Also the "(Part 2) Engine Fixes - skse64 Preloader and TBB Lib" zip file needs to be extracted to your main SkyrimVR folder or the plugin will not load correctly
 
 # Tools used
 
