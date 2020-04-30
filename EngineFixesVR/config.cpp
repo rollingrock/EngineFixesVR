@@ -72,51 +72,51 @@ namespace config
         cleanSKSECosaves = ini.GetBoolean("EngineFixes", "CleanSKSECosaves", true);
 
         // Patches
-        patchDisableChargenPrecache = ini.GetBoolean("Patches", "DisableChargenPrecache", false);
+ //       patchDisableChargenPrecache = ini.GetBoolean("Patches", "DisableChargenPrecache", false);
         patchEnableAchievementsWithMods = ini.GetBoolean("Patches", "EnableAchievementsWithMods", true);
         patchFormCaching = ini.GetBoolean("Patches", "FormCaching", true);
         patchMaxStdio = ini.GetBoolean("Patches", "MaxStdio", true);
-        patchRegularQuicksaves = ini.GetBoolean("Patches", "RegularQuicksaves", false);
-        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
-        patchScrollingDoesntSwitchPOV = ini.GetBoolean("Patches", "ScrollingDoesntSwitchPOV", false);
-        patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
-        sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
+//        patchRegularQuicksaves = ini.GetBoolean("Patches", "RegularQuicksaves", false);
+//        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
+//        patchScrollingDoesntSwitchPOV = ini.GetBoolean("Patches", "ScrollingDoesntSwitchPOV", false);
+//        patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
+//        sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
         patchTreeLODReferenceCaching = ini.GetBoolean("Patches", "TreeLODReferenceCaching", true);
-        patchWaterflowAnimation = ini.GetBoolean("Patches", "WaterflowAnimation", true);
-        waterflowSpeed = static_cast<float>(ini.GetReal("Patches", "WaterflowSpeed", 20.0));
+//        patchWaterflowAnimation = ini.GetBoolean("Patches", "WaterflowAnimation", true);
+//        waterflowSpeed = static_cast<float>(ini.GetReal("Patches", "WaterflowSpeed", 20.0));
 
         // Fixes
         fixAnimationLoadSignedCrash = ini.GetBoolean("Fixes", "AnimationLoadSignedCrash", true);
-        fixArcheryDownwardAiming = ini.GetBoolean("Fixes", "ArcheryDownwardAiming", true);
-        fixBethesdaNetCrash = ini.GetBoolean("Fixes", "BethesdaNetCrash", true);
+        //fixArcheryDownwardAiming = ini.GetBoolean("Fixes", "ArcheryDownwardAiming", true);
+        //fixBethesdaNetCrash = ini.GetBoolean("Fixes", "BethesdaNetCrash", true);
         fixBSLightingAmbientSpecular = ini.GetBoolean("Fixes", "BSLightingAmbientSpecular", true);
-        fixBSLightingShaderForceAlphaTest = ini.GetBoolean("Fixes", "BSLightingShaderForceAlphaTest", true);
-        fixBSLightingShaderGeometryParallaxBug = ini.GetBoolean("Fixes", "BSLightingShaderParallaxBug", true);
-        fixBSTempEffectNiRTTI = ini.GetBoolean("Fixes", "BSTempEffectNiRTTI", true);
+        //fixBSLightingShaderForceAlphaTest = ini.GetBoolean("Fixes", "BSLightingShaderForceAlphaTest", true);
+        //fixBSLightingShaderGeometryParallaxBug = ini.GetBoolean("Fixes", "BSLightingShaderParallaxBug", true);
+        //fixBSTempEffectNiRTTI = ini.GetBoolean("Fixes", "BSTempEffectNiRTTI", true);
         fixCalendarSkipping = ini.GetBoolean("Fixes", "CalendarSkipping", true);
         fixCellInit = ini.GetBoolean("Fixes", "CellInit", true);
         fixConjurationEnchantAbsorbs = ini.GetBoolean("Fixes", "ConjurationEnchantAbsorbs", true);
-        fixDoublePerkApply = ini.GetBoolean("Fixes", "DoublePerkApply", true);
+        //fixDoublePerkApply = ini.GetBoolean("Fixes", "DoublePerkApply", true);
         fixEquipShoutEventSpam = ini.GetBoolean("Fixes", "EquipShoutEventSpam", true);
-        fixGetKeywordItemCount = ini.GetBoolean("Fixes", "GetKeywordItemCount", false);
+        //fixGetKeywordItemCount = ini.GetBoolean("Fixes", "GetKeywordItemCount", false);
         fixGHeapLeakDetectionCrash = ini.GetBoolean("Fixes", "GHeapLeakDetectionCrash", true);
         fixLipSync = ini.GetBoolean("Fixes", "LipSync", true);
         fixMemoryAccessErrors = ini.GetBoolean("Fixes", "MemoryAccessErrors", true);
-        fixMO5STypo = ini.GetBoolean("Fixes", "MO5STypo", true);
+        //fixMO5STypo = ini.GetBoolean("Fixes", "MO5STypo", true);
         fixPerkFragmentIsRunning = ini.GetBoolean("Fixes", "PerkFragmentIsRunning", true);
         fixRemovedSpellBook = ini.GetBoolean("Fixes", "RemovedSpellBook", true);
-        fixSaveScreenshots = ini.GetBoolean("Fixes", "SaveScreenshots", true);
-        fixSlowTimeCameraMovement = ini.GetBoolean("Fixes", "SlowTimeCameraMovement", true);
-        fixTreeReflections = ini.GetBoolean("Fixes", "TreeReflections", true);
-        fixUnequipAllCrash = ini.GetBoolean("Fixes", "UnequipAllCrash", true);
-        fixVerticalLookSensitivity = ini.GetBoolean("Fixes", "VerticalLookSensitivity", true);
-        fixWeaponBlockScaling = ini.GetBoolean("Fixes", "WeaponBlockScaling", true);
+        //fixSaveScreenshots = ini.GetBoolean("Fixes", "SaveScreenshots", true);
+        //fixSlowTimeCameraMovement = ini.GetBoolean("Fixes", "SlowTimeCameraMovement", true);
+        //fixTreeReflections = ini.GetBoolean("Fixes", "TreeReflections", true);
+        //fixUnequipAllCrash = ini.GetBoolean("Fixes", "UnequipAllCrash", true);
+        //fixVerticalLookSensitivity = ini.GetBoolean("Fixes", "VerticalLookSensitivity", true);
+        //fixWeaponBlockScaling = ini.GetBoolean("Fixes", "WeaponBlockScaling", true);
 
         // Warnings
-        warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);
-        warnRefHandleLimit = ini.GetBoolean("Warnings", "RefHandleLimit", true);
-        warnRefrMainMenuLimit = ini.GetInteger("Warnings", "RefrMainMenuLimit", 800000);
-        warnRefrLoadedGameLimit = ini.GetInteger("Warnings", "RefrLoadedGameLimit", 1000000);
+        //warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);
+        //warnRefHandleLimit = ini.GetBoolean("Warnings", "RefHandleLimit", true);
+        //warnRefrMainMenuLimit = ini.GetInteger("Warnings", "RefrMainMenuLimit", 800000);
+        //warnRefrLoadedGameLimit = ini.GetInteger("Warnings", "RefrLoadedGameLimit", 1000000);
 
         // Experimental
         experimentalSaveGameMaxSize = ini.GetBoolean("Experimental", "SaveGameMaxSize", false);

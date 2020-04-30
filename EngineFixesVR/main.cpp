@@ -21,8 +21,7 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 		_MESSAGE("Message kDataLoaded");
 		DataHandler* dh = DataHandler::GetSingleton();
 
-		_MESSAGE("dh = %016I64X", dh);
-		_MESSAGE("dh->modList.loadedMods = %016I64X", &dh->modList.loadedModCount);
+		_VMESSAGE("dh->modList.loadedMods = %016I64X", &dh->modList.loadedModCount);
 
 		_VMESSAGE("Loaded Mods = %x", dh->modList.loadedModCount);
 		}
@@ -93,12 +92,21 @@ extern "C" {
 			SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kVerboseMessage);
 		}
 
+		if (config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)"))
+		{
+			_MESSAGE("loaded config successfully");
+		}
+		else
+		{
+			_MESSAGE("config load failed, using default config");
+		}
+
 		std::uintptr_t base = REL::Module::BaseAddr();
 		_MESSAGE("baseaddr = %016I64X", base);
 
 		REL::Offset<std::uint32_t*> testit(base + 0x194230);     // SSE has this offset as 0x194230
-		_MESSAGE("testit = %016I64X", testit.GetAddress());
-		_MESSAGE("testit = %016I64X", testit.GetOffset());
+		_VMESSAGE("testit = %016I64X", testit.GetAddress());
+		_VMESSAGE("testit = %016I64X", testit.GetOffset());
 
 		patches::PatchAll();
 

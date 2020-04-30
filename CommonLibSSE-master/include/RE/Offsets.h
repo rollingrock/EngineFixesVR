@@ -29,7 +29,8 @@ namespace RE
 			static constexpr REL::ID GetHostileToActor(static_cast<std::uint64_t>(36537));
 			static constexpr REL::ID GetLevel(static_cast<std::uint64_t>(36344));
 			static constexpr REL::ID HasPerk(static_cast<std::uint64_t>(36690));
-			static constexpr REL::ID IsRunning(static_cast<std::uint64_t>(36252));
+//			static constexpr REL::ID IsRunning(static_cast<std::uint64_t>(36252));   // SE is 5d1190  VR is 5d9770
+			static constexpr REL::Off2Loc IsRunning(static_cast<std::uint64_t>(0x5d9770));
 			static constexpr REL::ID RequestDetectionLevel(static_cast<std::uint64_t>(36748));
 			static constexpr REL::ID StealAlarm(static_cast<std::uint64_t>(36427));
 			static constexpr REL::ID SwitchRace(static_cast<std::uint64_t>(36901));

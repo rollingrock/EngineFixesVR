@@ -395,7 +395,7 @@ namespace RE
 	bool Actor::IsRunning() const
 	{
 		using func_t = decltype(&Actor::IsRunning);
-		REL::Offset<func_t> func(Offset::Actor::IsRunning);
+		REL::Offset<func_t> func(Offset::Actor::IsRunning.GetAddress());    // SE is 5d1190  VR is 5d9770
 		return func(this);
 	}
 
