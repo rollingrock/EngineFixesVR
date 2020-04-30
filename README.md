@@ -44,3 +44,5 @@ Cheat Engine
 Reclass
 
 Visual Studio
+
+SKSE Source
