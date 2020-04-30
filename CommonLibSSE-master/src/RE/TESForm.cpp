@@ -17,15 +17,20 @@ namespace RE
 	void TESForm::AddCompileIndex(FormID& a_id, TESFile* a_file)
 	{
 		using func_t = decltype(&TESForm::AddCompileIndex);
-		REL::Offset<func_t> func = REL::ID(14509);
+//		REL::Offset<func_t> func = REL::ID(14509);   // VR is 1a5510
+		REL::Offset<func_t> func = REL::Module::BaseAddr() + 0x1a5510;
 		return func(a_id, a_file);
 	}
 
 
 	std::pair<BSTHashMap<FormID, TESForm*>*, std::reference_wrapper<BSReadWriteLock>> TESForm::GetAllForms()
 	{
-		REL::Offset<BSTHashMap<FormID, TESForm*>**> allForms = REL::ID(514351);
-		REL::Offset<BSReadWriteLock*> allFormsMapLock = REL::ID(514360);
+//		REL::Offset<BSTHashMap<FormID, TESForm*>**> allForms = REL::ID(514351);   // SE is 1ec3cb8   VR is 1f88b18
+		REL::Offset<BSTHashMap<FormID, TESForm*>**> allForms = REL::Module::BaseAddr() + 0x1f88b18;
+
+		//		REL::Offset<BSReadWriteLock*> allFormsMapLock = REL::ID(514360);          // SE is 1ec4150   VR is 1f88fb0
+		REL::Offset<BSReadWriteLock*> allFormsMapLock = REL::Module::BaseAddr() + 0x1f88fb0;
+
 		return std::make_pair(*allForms, std::ref(*allFormsMapLock));
 	}
 
