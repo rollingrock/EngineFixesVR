@@ -34,3 +34,13 @@ PatchRemovedSpellBook
 # Install
 
 To install just drop in your SKSE/Plugins. 
+
+# Tools used
+
+Ghidra
+
+Cheat Engine
+
+Reclass
+
+Visual Studio
