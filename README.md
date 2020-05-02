@@ -2,15 +2,12 @@
 Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.com/skyrimspecialedition/mods/17230
 
 # Current working patches:
-
-Max STDIO patch
-
+- Max STDIO patch
 - Enabled AchievementsWithMods
 - Form Caching
 - TreeLODReference Caching
 
 # Current stable fixes:
-
 - PatchMemoryAccessErrors
 - PatchLipSync
 - PatchGHeapLeakDetectionCrash
