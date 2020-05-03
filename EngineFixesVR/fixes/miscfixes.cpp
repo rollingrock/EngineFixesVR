@@ -1,5 +1,8 @@
 #include <array>
+#include <map>
 #include <utility>
+#include <sysinfoapi.h>
+#include <algorithm>
 
 #include "RE/Skyrim.h"
 #include "REL/Relocation.h"
@@ -7,6 +10,8 @@
 #include "SKSE/CodeGenerator.h"
 #include "SKSE/SafeWrite.h"
 #include "SKSE/Trampoline.h"
+
+#include "tbb/concurrent_hash_map.h"
 
 #include "fixes.h"
 #include "utils.h"
@@ -565,6 +570,154 @@ namespace fixes
         _VMESSAGE("- removed spell book fix -");
 
         RemovedSpellBookPatch::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
+
+    struct abilityTimerData {
+        uint64_t lastTick;
+        uint64_t updateTimer;
+        uint64_t updateDiff;
+        uint64_t lastCounter;
+        bool updated = false;
+    };
+
+    class TimerData {
+    public:
+        long lastCounter = -1;
+        long updateDiff = -1;
+        long updateTimer = 0;
+        long lastTick = 0;
+        bool done = false;
+    };
+
+    tbb::concurrent_hash_map<uint64_t, TimerData*> timerData;
+
+    class FixAbilityConditionBug
+    {
+    public:
+        static void Install()
+        {
+            _VMESSAGE("nopping rest of if statement being replaced");
+
+            constexpr byte nop = 0x90;
+            constexpr uint8_t length = 0x79;
+
+            REL::Offset<std::uintptr_t> jumpLoc = REL::Module::BaseAddr() + 0x54123d;
+            REL::Offset<std::uintptr_t> returnFalse = REL::Module::BaseAddr() + 0x5412b6;   // MOV EAX,dword ptr [RDI+0x34]
+            REL::Offset<std::uintptr_t> returnTrue = REL::Module::BaseAddr() + 0x54133d;    // MOV RBX,qword ptr [RSP + local_res10]
+
+            for (int i = 0; i < length; ++i)
+            {
+                SKSE::SafeWrite8(jumpLoc.GetAddress() + i, nop);
+            }
+
+            struct Patch : SKSE::CodeGenerator
+            {
+                Patch(std::uintptr_t rf, std::uintptr_t rt) : SKSE::CodeGenerator()
+                {
+                    Xbyak::Label returnTrue;
+                    Xbyak::Label returnFalse;
+                    Xbyak::Label rf_addr;
+
+
+                    mov(rax, (uintptr_t)newTimingFunc);
+                    movss(xmm0, xmm6);
+                    movss(xmm1, ptr[rdi + 0x70]);
+                    mov(rcx, rdi);
+                    
+                    call(rax);     // Call new timing func
+
+                    test(rax, rax);
+                    jz(returnFalse);
+                    //movss(xmm1, ptr[rdi + 0x70]);
+                    jmp(ptr[rip + returnTrue]);
+
+                    L(returnFalse);
+                    jmp(ptr[rip+rf_addr]);
+
+                    L(returnTrue);
+                    dq(rt);
+
+                    L(rf_addr);
+                    dq(rf);
+                }
+            };
+
+            Patch patch(returnFalse.GetAddress(), returnTrue.GetAddress());
+            patch.finalize();
+
+            _VMESSAGE("Installing Patch");
+
+            auto trampoline = SKSE::GetTrampoline();
+            trampoline->Write5Branch(jumpLoc.GetAddress(), reinterpret_cast<std::uintptr_t>(patch.getCode()));
+        }
+
+    private:
+
+        static bool newTimingFunc(uint64_t rid_reg, float diff, float elapsedTime) {
+            REL::Offset<std::uintptr_t> gameSettingValue = REL::Module::BaseAddr() + 0x1ea23e0;
+
+            if (diff <= 0.0) {
+         //       _VMESSAGE("diff less than 0");
+                return true;
+            }
+
+
+            decltype(timerData)::accessor accessor;
+            TimerData* td = nullptr;
+
+            long now = (long)GetTickCount64();
+
+            if (timerData.find(accessor, rid_reg)) {
+                td = accessor->second;
+
+                int diff = now - td->lastTick;
+                if (diff == 0) {
+                    return true;
+                }
+
+                td->lastTick = now;
+                td->updateTimer += diff;
+
+            }
+            else {
+                td = new TimerData;
+                td->lastTick = now;
+
+                timerData.insert(std::make_pair(rid_reg, td));
+            }
+
+            if (td->updateDiff < 0) {
+                float* gsv = (float*)gameSettingValue.GetAddress();
+
+                float interval = std::max(0.001f, (float)(*gsv));
+
+                td->updateDiff = (long)(1000.0 / interval);
+
+                if (td->updateDiff <= 0) {
+                    td->updateDiff = 1;
+                }
+            }
+//            _VMESSAGE("rid_reg %016I64X td->updateTimer %d", rid_reg, td->updateTimer);
+
+            long cur = td->updateTimer / td->updateDiff;
+
+            if (cur != td->lastCounter) {
+                td->lastCounter = cur;
+                return true;
+            }
+            return false;
+        }
+
+    };
+
+    bool PatchFixAbilityConditionBug()
+    {
+        _VMESSAGE("PatchFixAbilityConditionBug fix");
+
+        FixAbilityConditionBug::Install();
 
         _VMESSAGE("success");
         return true;

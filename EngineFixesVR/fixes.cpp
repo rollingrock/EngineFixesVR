@@ -48,6 +48,10 @@ namespace fixes
             PatchRemovedSpellBook();
         }
 
+        if (config::fixAbilityConditionBug) {
+            PatchFixAbilityConditionBug();
+        }
+
         return true;
     }
 }

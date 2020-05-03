@@ -16,6 +16,7 @@ namespace fixes
     bool PatchEquipShoutEventSpam();
     bool PatchPerkFragmentIsRunning();
     bool PatchRemovedSpellBook();
+    bool PatchFixAbilityConditionBug();
 
     bool PatchAll();
 }

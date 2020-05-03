@@ -47,6 +47,7 @@ namespace config
     bool fixUnequipAllCrash = true;
     bool fixVerticalLookSensitivity = true;
     bool fixWeaponBlockScaling = true;
+    bool fixAbilityConditionBug = true;
 
     // Warnings
     bool warnDupeAddonNodes = true;
@@ -111,6 +112,7 @@ namespace config
         //fixUnequipAllCrash = ini.GetBoolean("Fixes", "UnequipAllCrash", true);
         //fixVerticalLookSensitivity = ini.GetBoolean("Fixes", "VerticalLookSensitivity", true);
         //fixWeaponBlockScaling = ini.GetBoolean("Fixes", "WeaponBlockScaling", true);
+        fixAbilityConditionBug = ini.GetBoolean("Fixes", "FixAbilityConditionBug", true);
 
         // Warnings
         //warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);

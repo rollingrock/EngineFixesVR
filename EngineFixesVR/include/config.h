@@ -45,6 +45,7 @@ namespace config
     extern bool fixVerticalLookSensitivity;
     extern bool fixAnimationLoadSignedCrash;
     extern bool fixWeaponBlockScaling;
+    extern bool fixAbilityConditionBug;
 
     // Warnings
     extern bool warnDupeAddonNodes;
