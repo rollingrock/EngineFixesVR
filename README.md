@@ -30,7 +30,7 @@ Also the "(Part 2) Engine Fixes - skse64 Preloader and TBB Lib" zip file needs t
 
 # Credits
 
-All I have done here is fix offsets and update some assembly code to match the VR binary.   All code design and original ideas credit goes to aers and the people they list in the mod page credits:
+Most I have done here is fix offsets and update some assembly code to match the VR binary.  All code design and original ideas credit goes to aers and the people they list in the mod page credits:
 
 - aers - original SSE mod author
 - Nukem -  more stuff than I can mention
