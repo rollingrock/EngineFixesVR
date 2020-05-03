@@ -20,6 +20,7 @@ Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.co
 - PatchPerkFragmentIsRunning
 - PatchRemovedSpellBook
 - FixAbilityConditionBug - Implemented c++ version of meh321's BugFixesSSE c# project
+- FixBuySellStackSpeechGain - Implemented c++ version of meh321's BugFixesSSE c# project
 
 # Install
 
@@ -34,7 +35,7 @@ All I have done here is fix offsets and update some assembly code to match the V
 - aers - original SSE mod author
 - Nukem -  more stuff than I can mention
 - Sniffleman/Ryan - Misc Fixes + CommonLibSSE 
-- meh321 - research into tree LOD function (SSE fixes), bugfixes LE & port permissions
+- meh321 - research into tree LOD function (SSE fixes), bugfixes LE & port permissions, and for making BugFixesSSE source available so I can port it
 - sheson - skse plugin preloader for LE alongside meh
 - himika - scatter table implementation from libskyrim (LE), plus tons of research function/variable names
 - kassent - useful information from the source code of various skse plugins 
