@@ -46,6 +46,8 @@ namespace config
     extern bool fixAnimationLoadSignedCrash;
     extern bool fixWeaponBlockScaling;
     extern bool fixAbilityConditionBug;
+    extern bool fixBuySellStackSpeechGain;
+
 
     // Warnings
     extern bool warnDupeAddonNodes;

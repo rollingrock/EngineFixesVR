@@ -48,6 +48,7 @@ namespace config
     bool fixVerticalLookSensitivity = true;
     bool fixWeaponBlockScaling = true;
     bool fixAbilityConditionBug = true;
+    bool fixBuySellStackSpeechGain = true;
 
     // Warnings
     bool warnDupeAddonNodes = true;
@@ -113,6 +114,7 @@ namespace config
         //fixVerticalLookSensitivity = ini.GetBoolean("Fixes", "VerticalLookSensitivity", true);
         //fixWeaponBlockScaling = ini.GetBoolean("Fixes", "WeaponBlockScaling", true);
         fixAbilityConditionBug = ini.GetBoolean("Fixes", "FixAbilityConditionBug", true);
+        fixBuySellStackSpeechGain = ini.GetBoolean("Fixes", "FixBuySellStackSpeechGain", true);
 
         // Warnings
         //warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);

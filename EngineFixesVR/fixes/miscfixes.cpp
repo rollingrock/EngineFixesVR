@@ -722,5 +722,90 @@ namespace fixes
         _VMESSAGE("success");
         return true;
     }
+
+
+    class FixBuySellStackSpeechGain
+    {
+    public:
+        static void Install()
+        {
+            REL::Offset<std::uintptr_t> loc1be = REL::Module::BaseAddr() + 0x87ce5e;
+            REL::Offset<std::uintptr_t> locd1  = REL::Module::BaseAddr() + 0x87cd71;
+            REL::Offset<std::uintptr_t> funcCall = REL::Module::BaseAddr() + 0x1e7200;
+
+            makePatches(loc1be.GetAddress(), locd1.GetAddress(), funcCall.GetAddress());   
+        }
+
+    private:
+        struct Patch1 : SKSE::CodeGenerator
+        {
+            Patch1(std::uintptr_t addr_src, std::uintptr_t funcCall_addr) : SKSE::CodeGenerator() {
+                Xbyak::Label exit1;
+
+                mov(rax, funcCall_addr);
+                call(rax);
+                mov(rdx, ptr[rsp + 0xd0]);
+                movss(xmm2, xmm0);
+                mov(rax, (uintptr_t)multExp);
+                call(rax);
+                jmp(ptr[rip + exit1]);
+
+                L(exit1);
+                dq(addr_src + 5);
+            }
+        };
+
+        struct Patch2 : SKSE::CodeGenerator
+        {
+            Patch2(std::uintptr_t addr_src, std::uintptr_t funcCall_addr) : SKSE::CodeGenerator() {
+                Xbyak::Label exit1;
+
+                mov(rax, funcCall_addr);
+                call(rax);
+                mov(rdx, ptr[rsp + 0xd0]);
+                movss(xmm2, xmm0);
+                mov(rax, (uintptr_t)multExp);
+                call(rax);
+                jmp(ptr[rip + exit1]);
+
+                L(exit1);
+                dq(addr_src + 5);
+            }
+        };
+
+        static void makePatches(std::uintptr_t source_addr1, std::uintptr_t source_addr2, std::uintptr_t funcCall) {
+            Patch1 patch1(source_addr1, funcCall);
+            patch1.finalize();
+
+            Patch2 patch2(source_addr2, funcCall);
+            patch2.finalize();
+
+            auto trampoline1 = SKSE::GetTrampoline();
+            trampoline1->Write5Branch(source_addr1, reinterpret_cast<std::uintptr_t>(patch1.getCode()));
+
+            auto trampoline2 = SKSE::GetTrampoline();
+            trampoline2->Write5Branch(source_addr2, reinterpret_cast<std::uintptr_t>(patch2.getCode()));
+        }
+
+        static float multExp(float und, int count, float giveXp) {
+            if (count > 1) {
+                giveXp = giveXp * count;
+            }
+
+            return giveXp;
+        }
+
+    };
+
+    bool PatchFixBuySellStackSpeechGain()
+    {
+        _VMESSAGE("PatchFixBuySellStackSpeechGain fix");
+
+        FixBuySellStackSpeechGain::Install();
+
+        _VMESSAGE("success");
+        return true;
+    }
 }
+
 

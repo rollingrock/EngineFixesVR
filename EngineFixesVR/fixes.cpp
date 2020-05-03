@@ -52,6 +52,10 @@ namespace fixes
             PatchFixAbilityConditionBug();
         }
 
+        if (config::fixBuySellStackSpeechGain) {
+            PatchFixBuySellStackSpeechGain();
+        }
+
         return true;
     }
 }
