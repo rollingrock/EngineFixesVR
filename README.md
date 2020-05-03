@@ -10,6 +10,7 @@ Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.co
 # Current stable fixes:
 - PatchMemoryAccessErrors
 - PatchLipSync
+- PatchCellInit
 - PatchGHeapLeakDetectionCrash
 - PatchAnimationLoadSignedCrash
 - PatchBSLightingAmbientSpecular
@@ -18,6 +19,7 @@ Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.co
 - PatchEquipShoutEventSpam
 - PatchPerkFragmentIsRunning
 - PatchRemovedSpellBook
+- FixAbilityConditionBug - Implemented c++ version of meh321's BugFixesSSE c# project
 
 # Install
 
