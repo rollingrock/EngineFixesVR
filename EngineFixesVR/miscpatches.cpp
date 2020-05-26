@@ -70,7 +70,7 @@ namespace patches
 
  //   REL::Offset<std::uintptr_t> AchievementModsEnabledFunction(AchievementModsEnabledFunction_offset);
 
-    std::uintptr_t AchievemetModsEnabled = AchievementModsEnabledFunction_offset.GetAddress();
+    std::uintptr_t AchievemetModsEnabled = AchievementModsEnabledFunction_offset;
 
     bool PatchEnableAchievementsWithMods()
     {

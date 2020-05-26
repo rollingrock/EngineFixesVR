@@ -1,7 +1,0 @@
-﻿  BranchTrampoline.cpp
-  Relocation.cpp
-  SafeWrite.cpp
-  Utilities.cpp
-C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\skse64_common\Utilities.cpp(105,6): warning C4996: 'GetVersionExA': was declared deprecated
-  Generating Code...
-  skse64_common.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\skse64_common.lib
