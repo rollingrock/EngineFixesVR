@@ -1,0 +1,13 @@
+﻿  formcaching.cpp
+     Creating library C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\EngineFixesVR.lib and object C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\EngineFixesVR.exp
+  Generating code
+  3 of 4720 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    42 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+common_vc14.lib(IErrors.obj) : warning LNK4099: PDB 'common_vc14.pdb' was not found with 'common_vc14.lib(IErrors.obj)' or at 'C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\common_vc14.pdb'; linking object as if no debug info
+common_vc14.lib(IDebugLog.obj) : warning LNK4099: PDB 'common_vc14.pdb' was not found with 'common_vc14.lib(IDebugLog.obj)' or at 'C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\common_vc14.pdb'; linking object as if no debug info
+common_vc14.lib(IFileStream.obj) : warning LNK4099: PDB 'common_vc14.pdb' was not found with 'common_vc14.lib(IFileStream.obj)' or at 'C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\common_vc14.pdb'; linking object as if no debug info
+common_vc14.lib(IDataStream.obj) : warning LNK4099: PDB 'common_vc14.pdb' was not found with 'common_vc14.lib(IDataStream.obj)' or at 'C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\common_vc14.pdb'; linking object as if no debug info
+  EngineFixesVR.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\x64\Release\EngineFixesVR.dll
+          1 file(s) copied.

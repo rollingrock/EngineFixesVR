@@ -1,0 +1,19 @@
+﻿  config.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\config.cpp(1,10): fatal error C1083: Cannot open include file: 'INIReader.h': No such file or directory
+  fixes.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\fixes.cpp(1,10): fatal error C1083: Cannot open include file: 'fixes.h': No such file or directory
+  miscfixes.cpp
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\winnt.h(173,1): fatal error C1189: #error:  "No Target Architecture"
+  main.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\main.cpp(1,10): fatal error C1083: Cannot open include file: 'common/IDebugLog.h': No such file or directory
+  miscpatches.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\miscpatches.cpp(4,10): fatal error C1083: Cannot open include file: 'REL/Relocation.h': No such file or directory
+  patches.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\patches.cpp(1,10): fatal error C1083: Cannot open include file: 'patches.h': No such file or directory
+  formcaching.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\patches\formcaching.cpp(3,10): fatal error C1083: Cannot open include file: 'tbb/concurrent_hash_map.h': No such file or directory
+  treelodreferencecaching.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\patches\treelodreferencecaching.cpp(1,10): fatal error C1083: Cannot open include file: 'RE/Skyrim.h': No such file or directory
+  utils.cpp
+C:\Users\rolli\source\repos\EngineFixesVR\utils.cpp(5,10): fatal error C1083: Cannot open include file: 'skse64_common/Utilities.h': No such file or directory
+  Generating Code...
