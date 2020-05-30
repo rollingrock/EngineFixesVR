@@ -1,6 +1,0 @@
-﻿  main.cpp
-LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
-config.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:ICF' specification
-     Creating library C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\EngineFixesVR.lib and object C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\EngineFixesVR.exp
-  EngineFixesVR.vcxproj -> C:\Users\rolli\source\repos\EngineFixesVR\skse\sksevr\x64\Debug\EngineFixesVR.dll
-          1 file(s) copied.
