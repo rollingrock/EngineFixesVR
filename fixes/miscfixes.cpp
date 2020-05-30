@@ -70,8 +70,8 @@ namespace fixes
                 }
             };
 
-            REL::Offset<std::uintptr_t> vtbl = REL::Module::BaseAddr() + 0x18fea78;    // SE is 12d38f3   VR is 18fea78
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x1338400;   // SE is 12f2020  VR is 1338400
+            REL::Offset<std::uintptr_t> vtbl = 0x18fea78;    // SE is 12d38f3   VR is 18fea78
+            REL::Offset<std::uintptr_t> funcBase = 0x1338400;   // SE is 12f2020  VR is 1338400
             std::uintptr_t hook = funcBase.GetAddress() + 0x4E0;
             std::uintptr_t exit = funcBase.GetAddress() + 0x5B6;
             vtbl.GetAddress();
@@ -90,7 +90,7 @@ namespace fixes
         {
             _VMESSAGE("patching BGSShaderParticleGeometryData limit");
 
-            REL::Offset<std::uintptr_t> vtbl = REL::Module::BaseAddr() + 0x15ebf50;
+            REL::Offset<std::uintptr_t> vtbl = 0x15ebf50;
             _Load = vtbl.WriteVFunc(0x6, Load);
         }
 
@@ -114,7 +114,7 @@ namespace fixes
             Patch patch;
             patch.ready();
 
-            REL::Offset<std::uintptr_t> target = REL::Module::BaseAddr() + 0x13574f0;  // SE is 13251c0   VR is 13574f0
+            REL::Offset<std::uintptr_t> target = 0x13574f0;  // SE is 13251c0   VR is 13574f0
 
             for (std::size_t i = 0; i < patch.getSize(); ++i)
             {
@@ -165,7 +165,7 @@ namespace fixes
                 0xD8
             };
             
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x201d80;   // SE is 1f12a0  VR is 201d80
+            REL::Offset<std::uintptr_t> funcBase = 0x201d80;   // SE is 1f12a0  VR is 201d80
             for (auto& offset : OFFSETS)
             {
                 SKSE::SafeWrite8(funcBase.GetAddress() + offset, 0xEB);  // jns -> jmp
@@ -191,7 +191,7 @@ namespace fixes
             constexpr std::uintptr_t START = 0x4B;
             constexpr std::uintptr_t END = 0x5C;
             constexpr UInt8 NOP = 0x90;
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x105cbb0;   //SE is fffeb0  VR is 105cbb0
+            REL::Offset<std::uintptr_t> funcBase = 0x105cbb0;   //SE is fffeb0  VR is 105cbb0
 
             for (std::uintptr_t i = START; i < END; ++i)
             {
@@ -217,7 +217,7 @@ namespace fixes
         static void Install()
         {
             auto trampoline = SKSE::GetTrampoline();
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 273830;  // SE is 262290  VR is 273830
+            REL::Offset<std::uintptr_t> funcBase = 0x273830;  // SE is 262290  VR is 273830
             _GetLocation = trampoline->Write5CallEx(funcBase.GetAddress() + 0x110, GetLocation);
         }
 
@@ -255,7 +255,7 @@ namespace fixes
         static void Install()
         {
             // Change "BF" to "B7"
-            REL::Offset<std::uintptr_t> target =  REL::Module::BaseAddr() + 0xba17a0 + 0x91;   // SE is b66930   VR is ba17a0
+            REL::Offset<std::uintptr_t> target =  0xba17a0 + 0x91;   // SE is b66930   VR is ba17a0
             SKSE::SafeWrite8(target.GetAddress(), 0xB7);
         }
     };
@@ -280,9 +280,9 @@ namespace fixes
             constexpr byte nop = 0x90;
             constexpr uint8_t length = 0x20;
 
-            REL::Offset<std::uintptr_t> addAmbientSpecularToSetupGeometry = REL::Module::BaseAddr() + 0x1339bb9;   // SE is 12f2bb0  VR is 1338f60   0xBAD in SE goes to 1339bb9 which is offset 0xC59
-            REL::Offset<std::uintptr_t> ambientSpecularAndFresnel = REL::Module::BaseAddr() + 0x342317c;           // SE is 1e0dfcc  VR is 342317c
-            REL::Offset<std::uintptr_t> disableSetupMaterialAmbientSpecular = REL::Module::BaseAddr() + 0x1338400 + 0x713;               // SE is 12f2020  VR is 1338400
+            REL::Offset<std::uintptr_t> addAmbientSpecularToSetupGeometry = 0x1339bb9;   // SE is 12f2bb0  VR is 1338f60   0xBAD in SE goes to 1339bb9 which is offset 0xC59
+            REL::Offset<std::uintptr_t> ambientSpecularAndFresnel = 0x342317c;           // SE is 1e0dfcc  VR is 342317c
+            REL::Offset<std::uintptr_t> disableSetupMaterialAmbientSpecular = 0x1338400 + 0x713;               // SE is 12f2020  VR is 1338400
 
             for (int i = 0; i < length; ++i)
             {
@@ -347,7 +347,7 @@ namespace fixes
             constexpr std::size_t CAVE_START = 0x17A;
             constexpr std::size_t CAVE_SIZE = 0x15;
 
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x5ad8f0;  // SE is 5a6230  VR is 5ad8f0
+            REL::Offset<std::uintptr_t> funcBase = 0x5ad8f0;  // SE is 5a6230  VR is 5ad8f0
 
             struct Patch : SKSE::CodeGenerator
             {
@@ -405,7 +405,7 @@ namespace fixes
     public:
         static void Install()
         {
-            REL::Offset<std::uintptr_t> vtbl = REL::Module::BaseAddr() + 0x1598b30;     // SE is 15217e0   VR is 1598b30
+            REL::Offset<std::uintptr_t> vtbl = 0x1598b30;     // SE is 15217e0   VR is 1598b30
             _DisallowsAbsorbReflection = vtbl.WriteVFunc(0x5E, DisallowsAbsorbReflection);
         }
 
@@ -451,7 +451,7 @@ namespace fixes
             constexpr UInt32 DIFF = CODE_CAVE_SIZE - BRANCH_SIZE;
             constexpr UInt8 NOP = 0x90;
 
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x63b290;  // SE is 6323c0 VR is 63b290
+            REL::Offset<std::uintptr_t> funcBase = 0x63b290;  // SE is 6323c0 VR is 63b290
 
             struct Patch : SKSE::CodeGenerator
             {
@@ -510,7 +510,7 @@ namespace fixes
     public:
         static void Install()
         {
-            REL::Offset<std::uintptr_t> funcBase = REL::Module::BaseAddr() + 0x2ecb20;  // SE is 2db610 VR is 2ecb20
+            REL::Offset<std::uintptr_t> funcBase = 0x2ecb20;  // SE is 2db610 VR is 2ecb20
             auto trampoline = SKSE::GetTrampoline();
             trampoline->Write5Call(funcBase.GetAddress() + 0x22, IsRunning);
         }
@@ -537,7 +537,7 @@ namespace fixes
     public:
         static void Install()
         {
-            REL::Offset<std::uintptr_t> vtbl = REL::Module::BaseAddr() + 0x15c9e68;   // SE is 15592b8  VR is 15c9e68
+            REL::Offset<std::uintptr_t> vtbl = 0x15c9e68;   // SE is 15592b8  VR is 15c9e68
             _LoadGame = vtbl.WriteVFunc(0xF, LoadGame);
         }
 
@@ -604,9 +604,9 @@ namespace fixes
             constexpr byte nop = 0x90;
             constexpr uint8_t length = 0x79;
 
-            REL::Offset<std::uintptr_t> jumpLoc = REL::Module::BaseAddr() + 0x54123d;
-            REL::Offset<std::uintptr_t> returnFalse = REL::Module::BaseAddr() + 0x5412b6;   // MOV EAX,dword ptr [RDI+0x34]
-            REL::Offset<std::uintptr_t> returnTrue = REL::Module::BaseAddr() + 0x54133d;    // MOV RBX,qword ptr [RSP + local_res10]
+            REL::Offset<std::uintptr_t> jumpLoc = 0x54123d;
+            REL::Offset<std::uintptr_t> returnFalse = 0x5412b6;   // MOV EAX,dword ptr [RDI+0x34]
+            REL::Offset<std::uintptr_t> returnTrue = 0x54133d;    // MOV RBX,qword ptr [RSP + local_res10]
 
             for (int i = 0; i < length; ++i)
             {
@@ -657,7 +657,7 @@ namespace fixes
     private:
 
         static bool newTimingFunc(uint64_t rid_reg, float diff, float elapsedTime) {
-            REL::Offset<std::uintptr_t> gameSettingValue = REL::Module::BaseAddr() + 0x1ea23e0;
+            REL::Offset<std::uintptr_t> gameSettingValue = 0x1ea23e0;
 
             if (diff <= 0.0) {
          //       _VMESSAGE("diff less than 0");
@@ -729,9 +729,9 @@ namespace fixes
     public:
         static void Install()
         {
-            REL::Offset<std::uintptr_t> loc1be = REL::Module::BaseAddr() + 0x87ce5e;
-            REL::Offset<std::uintptr_t> locd1  = REL::Module::BaseAddr() + 0x87cd71;
-            REL::Offset<std::uintptr_t> funcCall = REL::Module::BaseAddr() + 0x1e7200;
+            REL::Offset<std::uintptr_t> loc1be = 0x87ce5e;
+            REL::Offset<std::uintptr_t> locd1  = 0x87cd71;
+            REL::Offset<std::uintptr_t> funcCall = 0x1e7200;
 
             makePatches(loc1be.GetAddress(), locd1.GetAddress(), funcCall.GetAddress());   
         }

@@ -18,23 +18,23 @@ namespace patches
 
     tbb::concurrent_hash_map<uint32_t, RE::TESForm*> globalFormCacheMap[256];
 
-    REL::Offset<RE::BSReadWriteLock*> GlobalFormTableLock(base + 0x1f88fb0);     // 1ec4150
-    REL::Offset<RE::BSTHashMap<UInt32, RE::TESForm*>**> GlobalFormTable(base + 0x1f88b18); // 1ec3cb8   delta of ‬‬0xc4e60
+    REL::Offset<RE::BSReadWriteLock*> GlobalFormTableLock(0x1f88fb0);     // 1ec4150
+    REL::Offset<RE::BSTHashMap<UInt32, RE::TESForm*>**> GlobalFormTable(0x1f88b18); // 1ec3cb8   delta of ‬‬0xc4e60
 
     typedef void (*UnknownFormFunction0_)(__int64 form, bool a2);
-    REL::Offset<UnknownFormFunction0_> origFunc0HookAddr(base + 0x1a4520);    // 1947f0  delta of 0xfd30
+    REL::Offset<UnknownFormFunction0_> origFunc0HookAddr(0x1a4520);    // 1947f0  delta of 0xfd30
     UnknownFormFunction0_ origFunc0;
 
     typedef __int64 (*UnknownFormFunction1_)(__int64 a1, __int64 a2, int a3, DWORD* formId, __int64* a5);
-    REL::Offset<UnknownFormFunction1_> origFunc1HookAddr(base + 0x1a5c20);    // 195ef0
+    REL::Offset<UnknownFormFunction1_> origFunc1HookAddr(0x1a5c20);    // 195ef0
     UnknownFormFunction1_ origFunc1;
 
     typedef __int64 (*UnknownFormFunction2_)(__int64 a1, __int64 a2, int a3, DWORD* formId, __int64** a5);
-    REL::Offset<UnknownFormFunction2_> origFunc2HookAddr(base + 0x1a5950); // 195c20
+    REL::Offset<UnknownFormFunction2_> origFunc2HookAddr(0x1a5950); // 195c20
     UnknownFormFunction2_ origFunc2;
 
     typedef __int64 (*UnknownFormFunction3_)(__int64 a1, __int64 a2, int a3, __int64 a4);
-    REL::Offset<UnknownFormFunction3_> origFunc3HookAddr(base + 0x1a6510);    // 1967e0
+    REL::Offset<UnknownFormFunction3_> origFunc3HookAddr(0x1a6510);    // 1967e0
     UnknownFormFunction3_ origFunc3;
 
     void UpdateFormCache(uint32_t FormId, RE::TESForm* Value, bool Invalidate)
@@ -74,6 +74,7 @@ namespace patches
         {
             auto iter = (*GlobalFormTable)->find(FormId);
             formPointer = (iter != (*GlobalFormTable)->end()) ? iter->second : nullptr;
+      //      _MESSAGE("FormID = %x -> %016I64X", FormId, formPointer);
         }
 
         GlobalFormTableLock->UnlockForRead();
@@ -116,9 +117,11 @@ namespace patches
     {
         _MESSAGE("- form caching -");
 
-        REL::Offset<std::uint32_t*> LookupFormByID(base + 0x1a3f60);     // SSE has this offset as 0x194230
+        REL::Offset<std::uint32_t*> LookupFormByID(0x1a3f60);     // SSE has this offset as 0x194230
 //        uintptr_t LookupFormByID = REL::Module::BaseAddr() + (uintptr_t)0x194230;
         _VMESSAGE("gimmie addr %016I64X", LookupFormByID.GetAddress());
+        _VMESSAGE("%016I64X", *LookupFormByID);
+
         if (*LookupFormByID != 0x83485740)
         {
             _VMESSAGE("sse fixes is installed and enabled. aborting form cache patch.");
