@@ -81,8 +81,8 @@ namespace config
 //        patchRegularQuicksaves = ini.GetBoolean("Patches", "RegularQuicksaves", false);
 //        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
 //        patchScrollingDoesntSwitchPOV = ini.GetBoolean("Patches", "ScrollingDoesntSwitchPOV", false);
-//        patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
-//        sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
+        patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
+        sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
         patchTreeLODReferenceCaching = ini.GetBoolean("Patches", "TreeLODReferenceCaching", true);
 //        patchWaterflowAnimation = ini.GetBoolean("Patches", "WaterflowAnimation", true);
 //        waterflowSpeed = static_cast<float>(ini.GetReal("Patches", "WaterflowSpeed", 20.0));

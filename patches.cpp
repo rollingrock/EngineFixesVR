@@ -26,8 +26,8 @@ namespace patches
         //if (config::patchScrollingDoesntSwitchPOV)
         //    PatchScrollingDoesntSwitchPOV();
 
-        //if (config::patchSleepWaitTime)
-        //    PatchSleepWaitTime();
+        if (config::patchSleepWaitTime)
+            PatchSleepWaitTime();
 
         if (config::patchTreeLODReferenceCaching)
             PatchTreeLODReferenceCaching();

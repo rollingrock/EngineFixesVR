@@ -97,5 +97,34 @@ namespace patches
         return true;
     }
 
+    REL::Offset<std::uintptr_t> SleepWaitTime_Compare = (0x8ea840 + 0x193);     // 8ea840 VR for top of function --- 0x193 offset to COMISS XMM0, dword ptr[DAT_14159a628]
+
+    bool PatchSleepWaitTime()
+    {
+        _VMESSAGE("- sleep wait time -");
+        {
+            struct SleepWaitTime_Code : SKSE::CodeGenerator
+            {
+                SleepWaitTime_Code() : SKSE::CodeGenerator()
+                {
+                    push(rax);
+                    mov(rax, (size_t)&config::sleepWaitTimeModifier);
+                    comiss(xmm0, ptr[rax]);
+                    pop(rax);
+                    jmp(ptr[rip]);
+                    dq(SleepWaitTime_Compare.GetAddress() + 0x7);
+                }
+            };
+
+            SleepWaitTime_Code code;
+            code.ready();
+
+            auto trampoline = SKSE::GetTrampoline();
+            trampoline->Write6Branch(SleepWaitTime_Compare.GetAddress(), code.getCode());
+        }
+        _VMESSAGE("success");
+        return true;
+    }
+
 
 }

@@ -12,7 +12,7 @@ namespace patches
     //bool PatchRegularQuicksaves();
     //bool PatchSaveAddedSoundCategories();
     //bool PatchScrollingDoesntSwitchPOV();
-    //bool PatchSleepWaitTime();
+    bool PatchSleepWaitTime();
     bool PatchTreeLODReferenceCaching();
     //bool PatchWaterflowAnimation();
 

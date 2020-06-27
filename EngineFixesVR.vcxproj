@@ -108,6 +108,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>common_vc14.lib;sksevr_1_4_15.lib;skse64_common.lib;CommonLibVR.lib;Version.lib;tbb.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>exports.def</ModuleDefinitionFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\Skyrim UVRE MO2\mods\EngineFixesVR\SKSE\Plugins" /Y</Command>

@@ -74,7 +74,7 @@ namespace patches
         {
             auto iter = (*GlobalFormTable)->find(FormId);
             formPointer = (iter != (*GlobalFormTable)->end()) ? iter->second : nullptr;
-      //      _MESSAGE("FormID = %x -> %016I64X", FormId, formPointer);
+    ///        _MESSAGE("FormID = %x -> %016I64X", FormId, formPointer);
         }
 
         GlobalFormTableLock->UnlockForRead();
