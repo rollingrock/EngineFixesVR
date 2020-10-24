@@ -98,7 +98,7 @@ namespace config
         fixCalendarSkipping = ini.GetBoolean("Fixes", "CalendarSkipping", true);
         fixCellInit = ini.GetBoolean("Fixes", "CellInit", true);
         fixConjurationEnchantAbsorbs = ini.GetBoolean("Fixes", "ConjurationEnchantAbsorbs", true);
-        //fixDoublePerkApply = ini.GetBoolean("Fixes", "DoublePerkApply", true);
+        fixDoublePerkApply = ini.GetBoolean("Fixes", "DoublePerkApply", true);
         fixEquipShoutEventSpam = ini.GetBoolean("Fixes", "EquipShoutEventSpam", true);
         //fixGetKeywordItemCount = ini.GetBoolean("Fixes", "GetKeywordItemCount", false);
         fixGHeapLeakDetectionCrash = ini.GetBoolean("Fixes", "GHeapLeakDetectionCrash", true);

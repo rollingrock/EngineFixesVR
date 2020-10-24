@@ -7,20 +7,33 @@
 
 #include "fixes.h"
 
+// Double Perk Apply
+REL::Offset<std::uintptr_t> QueueApplyPerk_offset(0x5ced40);   // SSE 5c67a0   VR is 5ced40
+REL::Offset<std::uintptr_t> Handle_Add_Rf_offset(0x68b490);    // SSE 682020   VR is 68b490
+REL::Offset<std::uintptr_t> Switch_Function_movzx_offset(0x5cf480);   // SSE 5c6ee0  VR is 5cf480  though this is suspect need to validate
+REL::Offset<std::uintptr_t> Unknown_Add_Function_movzx_offset(0x5ced40);   // SSE 5c67a0  VR is 5ced40
+REL::Offset<std::uintptr_t> Unknown_Add_Function_movzx2_offset(0x5ced40);   // +0x2C  Do we need to add?
+REL::Offset<std::uintptr_t> Next_Formid_Get_Hook_offset(0x68b440);       // SSE 681fd0  VR is 68b440
+// called just after switch function movzx above, +0x1B
+REL::Offset<std::uintptr_t> Do_Handle_Hook_offset(0x347f60);    // SSE 3386a0  VR is 347f60
+REL::Offset<std::uintptr_t> Do_Add_Hook_offset(0x348310);    // SSE 338a50  VR is 348310
+
+
+
 namespace fixes
 {
     uint32_t next_formid;
 
     typedef void (*_QueueApplyPerk)(RE::TaskQueueInterface* thisPtr, RE::Actor* actor, RE::BGSPerk* perk, std::int8_t oldRank, std::int8_t newRank);
-    REL::Offset<_QueueApplyPerk> QueueApplyPerk(QueueApplyPerk_offset);
+    REL::Offset<_QueueApplyPerk> QueueApplyPerk(QueueApplyPerk_offset.GetOffset());
     typedef void (*_HandleAddRf)(int64_t apm);
-    REL::Offset<_HandleAddRf> HandleAddRf(Handle_Add_Rf_offset);
-    REL::Offset<std::uintptr_t> SwitchFunctionMovzx(Switch_Function_movzx_offset, 0x1C4E);
-    REL::Offset<std::uintptr_t> UnknownAddFuncMovzx1(Unknown_Add_Function_movzx_offset, 0x1A);
-    REL::Offset<std::uintptr_t> UnknownAddFuncMovzx2(Unknown_Add_Function_movzx2_offset, 0x46);
-    REL::Offset<std::uintptr_t> NextFormIdGetHook(Next_Formid_Get_Hook_offset, 0x1B);
-    REL::Offset<std::uintptr_t> DoHandleHook(Do_Handle_Hook_offset, 0x1B);
-    REL::Offset<std::uintptr_t> DoAddHook(Do_Add_Hook_offset, 0x11);
+    REL::Offset<_HandleAddRf> HandleAddRf(Handle_Add_Rf_offset.GetOffset());
+    REL::Offset<std::uintptr_t> SwitchFunctionMovzx(Switch_Function_movzx_offset.GetOffset(), 0x1CAA);    // second movzx in case 0x5f
+    REL::Offset<std::uintptr_t> UnknownAddFuncMovzx1(Unknown_Add_Function_movzx_offset.GetOffset(), 0x1A);
+    REL::Offset<std::uintptr_t> UnknownAddFuncMovzx2(Unknown_Add_Function_movzx2_offset.GetOffset(), 0x46);
+    REL::Offset<std::uintptr_t> NextFormIdGetHook(Next_Formid_Get_Hook_offset.GetOffset(), 0x1B);
+    REL::Offset<std::uintptr_t> DoHandleHook(Do_Handle_Hook_offset.GetOffset(), 0x1B);
+    REL::Offset<std::uintptr_t> DoAddHook(Do_Add_Hook_offset.GetOffset(), 0x11);
 
     void do_add(RE::Actor* actorPtr, RE::BGSPerk* perkPtr, std::int8_t newRank)
     {
@@ -35,7 +48,7 @@ namespace fixes
             if (formid != 0x14)  // player formid = 0x14
                 oldRank |= 0x100;
         }
-
+//        _MESSAGE("taskinterface is %016I64X", RE::TaskQueueInterface::GetSingleton());
         QueueApplyPerk(RE::TaskQueueInterface::GetSingleton(), actorPtr, perkPtr, oldRank, newRank);
     }
 

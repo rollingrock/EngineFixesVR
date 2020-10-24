@@ -301,7 +301,9 @@ namespace patches
         _VMESSAGE("- Tree LOD Reference Caching -");
 
         _VMESSAGE("detouring UpdateLODAlphaFade");
-        _VMESSAGE("gimmie addr %016I64X", unrestricted_cast<std::uintptr_t>(&hk_UpdateBlockVisibility));
+        _VMESSAGE("gimmie addr %016I64X", unrestricted_cast<std::uintptr_t>(&hk_UpdateBlockVisibility));        
+        _VMESSAGE("gimmie addr %016I64X", UpdateBlockVisibility_orig.GetAddress());
+
 
         auto trampoline = SKSE::GetTrampoline();
         trampoline->Write6Branch(UpdateBlockVisibility_orig.GetAddress(), unrestricted_cast<std::uintptr_t>(&hk_UpdateBlockVisibility));

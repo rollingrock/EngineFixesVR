@@ -36,6 +36,10 @@ namespace fixes
             PatchConjurationEnchantAbsorbs();
         }
 
+        if (config::fixDoublePerkApply) {
+            PatchDoublePerkApply();
+        }
+
         if (config::fixEquipShoutEventSpam) {
             PatchEquipShoutEventSpam();
         }

@@ -51,6 +51,9 @@
     <ClCompile Include="fixes\miscfixes.cpp">
       <Filter>src\fixes</Filter>
     </ClCompile>
+    <ClCompile Include="fixes\doubleperkapply.cpp">
+      <Filter>src\fixes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\version.h">
