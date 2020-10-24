@@ -63,7 +63,7 @@ extern "C" {
 		}
 
 		auto ver = a_skse->RuntimeVersion();
-		if (ver <= SKSE::RUNTIME_VR_1_4_15)
+		if (ver < SKSE::RUNTIME_VR_1_4_15)
 		{
 			_FATALERROR("Unsupported runtime version %s!\n", ver.GetString().c_str());
 			return false;
