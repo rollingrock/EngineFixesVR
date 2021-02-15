@@ -26,7 +26,7 @@ namespace patches
     typedef RE::TESForm* (*_LookupFormByID)(uint32_t id);
     REL::Offset<_LookupFormByID> LookupFormByID(0x1a3f60);    // was 194230
 
-    tbb::concurrent_hash_map<uint32_t, RE::TESObjectREFR*> referencesFormCache;
+    tbb::concurrent_hash_map<uint32_t, RE::NiPointer<RE::TESObjectREFR> > referencesFormCache;
 
     void InvalidateCachedForm(uint32_t FormId)
     {
@@ -54,7 +54,7 @@ namespace patches
 
                 if (referencesFormCache.find(accessor, maskedFormId))
                 {
-                    refrObject = accessor->second;
+                    refrObject = accessor->second.get();
                 }
                 else
                 {
@@ -89,7 +89,7 @@ namespace patches
                         }
 
                         // Insert even if it's a null pointer
-                        referencesFormCache.insert(std::make_pair(maskedFormId, refrObject));
+                        referencesFormCache.insert(std::make_pair(maskedFormId, RE::NiPointer<RE::TESObjectREFR>(refrObject)));
                 }
                 bool fullyHidden = false;
                 float alpha = 1.0f;

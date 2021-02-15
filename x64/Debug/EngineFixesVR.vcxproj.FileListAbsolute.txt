@@ -1,0 +1,2 @@
+C:\Users\rolli\source\repos\EngineFixesVR\x64\Debug\EngineFixesVR.dll
+C:\Users\rolli\source\repos\EngineFixesVR\x64\Debug\EngineFixesVR.pdb
