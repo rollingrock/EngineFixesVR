@@ -18,6 +18,7 @@ namespace config
     extern bool patchTreeLODReferenceCaching;
     extern bool patchWaterflowAnimation;
     extern float waterflowSpeed;
+    extern bool patchMemoryManager;
 
     // Fixes
     extern bool fixArcheryDownwardAiming;

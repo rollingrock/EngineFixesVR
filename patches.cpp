@@ -41,6 +41,9 @@ namespace patches
         //if (config::experimentalTreatAllModsAsMasters)
         //    PatchTreatAllModsAsMasters();
 
+        if (config::patchMemoryManager)
+            PatchMemoryManager();
+
         return true;
     }
 }

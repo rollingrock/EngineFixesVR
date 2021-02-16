@@ -14,6 +14,7 @@ namespace patches
     //bool PatchScrollingDoesntSwitchPOV();
     bool PatchSleepWaitTime();
     bool PatchTreeLODReferenceCaching();
+    bool PatchMemoryManager();
     //bool PatchWaterflowAnimation();
 
     //bool PatchMemoryManager();

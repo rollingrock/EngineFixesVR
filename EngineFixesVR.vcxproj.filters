@@ -54,6 +54,9 @@
     <ClCompile Include="fixes\doubleperkapply.cpp">
       <Filter>src\fixes</Filter>
     </ClCompile>
+    <ClCompile Include="memorymanager.cpp">
+      <Filter>src\patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\version.h">
