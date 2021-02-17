@@ -8,6 +8,7 @@ namespace patches
             PatchDisableChargenPrecache();
             */
 
+
         if (config::patchFormCaching)
             PatchFormCaching();
 
@@ -41,9 +42,14 @@ namespace patches
         //if (config::experimentalTreatAllModsAsMasters)
         //    PatchTreatAllModsAsMasters();
 
+
+        return true;
+    }
+
+    bool PatchPreload() {
+
         if (config::patchMemoryManager)
             PatchMemoryManager();
-
         return true;
     }
 }

@@ -24,4 +24,5 @@ namespace patches
 //    void LoadVolumes();
 
     bool PatchAll();
+    bool PatchPreload();
 }

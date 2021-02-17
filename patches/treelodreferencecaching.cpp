@@ -4,7 +4,7 @@
 #include "SKSE/Trampoline.h"
 #include "RE/NiNode.h"
 
-#include "tbb/concurrent_hash_map.h"
+#include "oneapi/tbb/concurrent_hash_map.h"
 
 #include "skse64/GameData.h"
 #include "skse64/NiObjects.h"

@@ -213,7 +213,7 @@ namespace
         {
             std::memset(a_this, 0, sizeof(RE::ScrapHeap));
             //reinterpret_cast<std::uintptr_t*>(a_this)[0] = REL::ID(285161).address();
-            reinterpret_cast<std::uintptr_t*>(a_this)[0] = 0x17e4168;
+            reinterpret_cast<std::uintptr_t*>(a_this)[0] = REL::Module::BaseAddr() + 0x17e4168;
             return a_this;
         }
 

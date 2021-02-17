@@ -11,7 +11,7 @@
 #include "SKSE/SafeWrite.h"
 #include "SKSE/Trampoline.h"
 
-#include "tbb/concurrent_hash_map.h"
+#include "oneapi/tbb/concurrent_hash_map.h"
 
 #include "fixes.h"
 #include "utils.h"

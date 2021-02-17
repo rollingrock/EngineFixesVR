@@ -69,6 +69,13 @@ extern "C" {
 			return false;
 		}
 
+		if (!SKSE::AllocTrampoline(1 << 11))
+		{
+			return false;
+		}
+		
+		_MESSAGE("Preload Patching");
+		patches::PatchPreload();
 		return true;
 	}
 
@@ -80,10 +87,6 @@ extern "C" {
 			return false;
 		}
 
-		if (!SKSE::AllocTrampoline(1 << 11))
-		{
-			return false;
-		}
 
 		//Sleep(10000);
 		//auto messaging = SKSE::GetMessagingInterface();
@@ -112,9 +115,9 @@ extern "C" {
 		std::uintptr_t base = REL::Module::BaseAddr();
 		_MESSAGE("baseaddr = %016I64X", base);
 
-		REL::Offset<std::uint32_t*> testit(0x194230);     // SSE has this offset as 0x194230
-		_VMESSAGE("testit = %016I64X", testit.GetAddress());
-		_VMESSAGE("testit = %016I64X", testit.GetOffset());
+//		REL::Offset<std::uint32_t*> testit(0x194230);     // SSE has this offset as 0x194230
+		//_VMESSAGE("testit = %016I64X", testit.GetAddress());
+		//_VMESSAGE("testit = %016I64X", testit.GetOffset());
 
 		patches::PatchAll();
 
