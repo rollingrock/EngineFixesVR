@@ -126,18 +126,18 @@ namespace
         {
             if (a_size > 0)
                 return a_alignmentRequired ?
-                scalable_aligned_malloc(a_size, a_alignment) :
-                scalable_malloc(a_size);
+                _aligned_malloc(a_size, a_alignment) :
+                malloc(a_size);
             else
                 return g_trash;
         }
 
         void Deallocate(RE::MemoryManager*, void* a_mem, bool a_alignmentRequired)
         {
-            if (a_mem != g_trash)
+            if ((a_mem != g_trash) && (a_mem != nullptr))
                 a_alignmentRequired ?
-                scalable_aligned_free(a_mem) :
-                scalable_free(a_mem);
+                _aligned_free(a_mem) :
+                free(a_mem);
         }
 
         void* Reallocate(RE::MemoryManager* a_self, void* a_oldMem, std::size_t a_newSize, std::uint32_t a_alignment, bool a_alignmentRequired)
@@ -146,8 +146,8 @@ namespace
                 return Allocate(a_self, a_newSize, a_alignment, a_alignmentRequired);
             else
                 return a_alignmentRequired ?
-                scalable_aligned_realloc(a_oldMem, a_newSize, a_alignment) :
-                scalable_realloc(a_oldMem, a_newSize);
+                _aligned_realloc(a_oldMem, a_newSize, a_alignment) :
+                realloc(a_oldMem, a_newSize);
         }
 
         void ReplaceAllocRoutines()
@@ -191,9 +191,22 @@ namespace
             SKSE::SafeWrite8(target.GetAddress(), 0xC3);
         }
 
+        void patchInit() {
+            // Allocator init offset for VR
+            const uintptr_t AllocatorInitFunc = REL::Module::BaseAddr() + 0x5A2CB0;
+
+            // Return immediately from start of func - replacing "40 57  push    rdi" with "C3 90 - ret nop"
+            SKSE::SafeWrite8(AllocatorInitFunc, 0xC3);
+            SKSE::SafeWrite8(AllocatorInitFunc + 1, 0x90);
+
+            _VMESSAGE("Performed OS allocators patch successfully");
+            return;
+        }
+
         void Install()
         {
             StubInit();
+            patchInit();
             ReplaceAllocRoutines();
             RE::MemoryManager::GetSingleton()->RegisterMemoryManager();
             RE::BSThreadEvent::InitSDM();
