@@ -85,7 +85,7 @@ namespace config
         patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
         sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
         patchTreeLODReferenceCaching = ini.GetBoolean("Patches", "TreeLODReferenceCaching", true);
-        patchMemoryManager = ini.GetBoolean("Patches", "MemoryManager", false);
+        patchMemoryManager = ini.GetBoolean("Patches", "MemoryManager", true);
 //        patchWaterflowAnimation = ini.GetBoolean("Patches", "WaterflowAnimation", true);
 //        waterflowSpeed = static_cast<float>(ini.GetReal("Patches", "WaterflowSpeed", 20.0));
 

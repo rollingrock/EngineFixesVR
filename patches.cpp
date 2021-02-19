@@ -50,6 +50,7 @@ namespace patches
 
         if (config::patchMemoryManager)
             PatchMemoryManager();
+
         return true;
     }
 }

@@ -13,6 +13,8 @@
 
 #include "xbyak/xbyak.h"    
 
+#define _DEBUG
+
 namespace RE
 {
     struct BSThreadEvent
@@ -124,20 +126,22 @@ namespace
     {
         void* Allocate(RE::MemoryManager*, std::size_t a_size, std::uint32_t a_alignment, bool a_alignmentRequired)
         {
-            if (a_size > 0)
+            if (a_size > 0) {
                 return a_alignmentRequired ?
-                _aligned_malloc(a_size, a_alignment) :
-                malloc(a_size);
+                    _aligned_malloc(a_size, a_alignment) :
+                    malloc(a_size);
+            }
             else
                 return g_trash;
         }
 
         void Deallocate(RE::MemoryManager*, void* a_mem, bool a_alignmentRequired)
         {
-            if ((a_mem != g_trash) && (a_mem != nullptr))
-                a_alignmentRequired ?
-                _aligned_free(a_mem) :
-                free(a_mem);
+            if ((a_mem != g_trash) && (a_mem != nullptr)) {
+				a_alignmentRequired ?
+					_aligned_free(a_mem) :
+					free(a_mem);
+            }
         }
 
         void* Reallocate(RE::MemoryManager* a_self, void* a_oldMem, std::size_t a_newSize, std::uint32_t a_alignment, bool a_alignmentRequired)

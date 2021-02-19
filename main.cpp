@@ -41,6 +41,24 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 }
 
 
+extern "C" void __declspec(dllexport) APIENTRY Initialize() {
+
+		if (config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)"))
+		{
+			_MESSAGE("loaded config successfully");
+		}
+		else
+		{
+			_MESSAGE("config load failed, using default config");
+		}
+
+		
+		_MESSAGE("Preload Patching");
+		patches::PatchPreload();
+
+}
+
+
 extern "C" {
 	bool SKSEPlugin_Query(const SKSE::QueryInterface* a_skse, SKSE::PluginInfo* a_info)
 	{
@@ -69,23 +87,12 @@ extern "C" {
 			return false;
 		}
 
-		if (!SKSE::AllocTrampoline(1 << 11))
-		{
-			return false;
-		}
-		
-		_MESSAGE("Preload Patching");
-		patches::PatchPreload();
 		return true;
 	}
 
 
 	bool SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 	{
-		if (!SKSE::Init(a_skse))
-		{
-			return false;
-		}
 
 
 		//Sleep(10000);
@@ -95,6 +102,12 @@ extern "C" {
 		//{
 		//	return false;
 		//}
+		if (!SKSE::Init(a_skse))
+		{
+			return false;
+		}
+
+		SKSE::AllocTrampoline(1 << 11);
 
 		if (config::verboseLogging)
 		{
@@ -103,14 +116,6 @@ extern "C" {
 			SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kVerboseMessage);
 		}
 
-		if (config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)"))
-		{
-			_MESSAGE("loaded config successfully");
-		}
-		else
-		{
-			_MESSAGE("config load failed, using default config");
-		}
 
 		std::uintptr_t base = REL::Module::BaseAddr();
 		_MESSAGE("baseaddr = %016I64X", base);
