@@ -92,6 +92,9 @@
     <ClInclude Include="include\fixes.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="treelodreferencecaching.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def">

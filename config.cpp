@@ -20,6 +20,7 @@ namespace config
     float sleepWaitTimeModifier = 0.3F;
     bool patchWaterflowAnimation = true;
     bool patchTreeLODReferenceCaching = true;
+    bool patchTreeLODClearMap = false;
     float waterflowSpeed = 20.0;
 
     // Fixes
@@ -85,6 +86,7 @@ namespace config
         patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
         sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
         patchTreeLODReferenceCaching = ini.GetBoolean("Patches", "TreeLODReferenceCaching", true);
+        patchTreeLODClearMap = ini.GetBoolean("Patches", "TreeLODClearMap", false);
         patchMemoryManager = ini.GetBoolean("Patches", "MemoryManager", true);
 //        patchWaterflowAnimation = ini.GetBoolean("Patches", "WaterflowAnimation", true);
 //        waterflowSpeed = static_cast<float>(ini.GetReal("Patches", "WaterflowSpeed", 20.0));

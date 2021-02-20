@@ -201,6 +201,7 @@
     <ClInclude Include="include\TreeLOD.h" />
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\version.h" />
+    <ClInclude Include="treelodreferencecaching.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />

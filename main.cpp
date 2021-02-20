@@ -12,7 +12,12 @@
 #include "fixes.h"
 #include "utils.h"
 
+#include "treelodreferencecaching.h"
+
 #include "version.h"  // VERSION_VERSTRING, VERSION_MAJOR
+
+patches::CellEventHandler g_cellEventHandler;
+
 
 void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 	switch (a_msg->type)
@@ -32,6 +37,12 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 		_VMESSAGE("dh->modList.loadedMods = %016I64X", &dh->modList.loadedModCount);
 
 		_VMESSAGE("Loaded Mods = %x", dh->modList.loadedModCount);
+
+		if (config::patchTreeLODClearMap) {
+			_MESSAGE("Turning on Cell Event handler to clear tree LOD map");
+			auto eventDispatchers = GetEventDispatcherList();
+			eventDispatchers->unk1B8.AddEventSink(&g_cellEventHandler);  // unk1b8 is the cell event dispatcher
+		}
 		}
 		break;
 	default:
@@ -84,20 +95,20 @@ extern "C" {
 
 	bool SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 	{
-
-
-		//Sleep(10000);
-		//auto messaging = SKSE::GetMessagingInterface();
-
-		//if (!messaging->RegisterListener("SKSE", MessageHandler))
-		//{
-		//	return false;
-		//}
 		if (!SKSE::Init(a_skse))
 		{
 			return false;
 		}
 
+		auto messaging = SKSE::GetMessagingInterface();
+
+		if (!messaging->RegisterListener("SKSE", MessageHandler))
+		{
+			_MESSAGE("failed to init Message Handler");
+			return false;
+		}
+
+		_MESSAGE("Messenger loaded");
 		SKSE::AllocTrampoline(1 << 11);
 
 		if (config::verboseLogging)

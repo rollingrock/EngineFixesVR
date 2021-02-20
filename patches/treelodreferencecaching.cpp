@@ -13,6 +13,8 @@
 #include "TreeLOD.h"
 #include "patches.h"
 
+#include "treelodreferencecaching.h"
+
 namespace patches
 {
     std::uintptr_t baseAddr = REL::Module::BaseAddr();
@@ -27,6 +29,13 @@ namespace patches
     REL::Offset<_LookupFormByID> LookupFormByID(0x1a3f60);    // was 194230
 
     tbb::concurrent_hash_map<uint32_t, RE::NiPointer<RE::TESObjectREFR> > referencesFormCache;
+
+    void CellEventHandler::resetMap() {
+        referencesFormCache.clear();
+
+        auto size = referencesFormCache.size();
+       // _MESSAGE("size %d", size);
+    }
 
     void InvalidateCachedForm(uint32_t FormId)
     {

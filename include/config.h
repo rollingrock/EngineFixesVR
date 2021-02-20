@@ -19,6 +19,7 @@ namespace config
     extern bool patchWaterflowAnimation;
     extern float waterflowSpeed;
     extern bool patchMemoryManager;
+    extern bool patchTreeLODClearMap;
 
     // Fixes
     extern bool fixArcheryDownwardAiming;

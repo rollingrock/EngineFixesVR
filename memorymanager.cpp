@@ -34,6 +34,7 @@ namespace
 {
     std::byte* g_trash{ nullptr };  // a dumb workaround for reads from/writes to zero size allocations
 
+
     namespace detail
     {
         struct asm_patch :
