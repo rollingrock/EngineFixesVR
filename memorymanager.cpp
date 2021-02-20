@@ -128,8 +128,8 @@ namespace
         {
             if (a_size > 0) {
                 return a_alignmentRequired ?
-                    _aligned_malloc(a_size, a_alignment) :
-                    malloc(a_size);
+                    scalable_aligned_malloc(a_size, a_alignment) :
+                    scalable_malloc(a_size);
             }
             else
                 return g_trash;
@@ -139,8 +139,8 @@ namespace
         {
             if ((a_mem != g_trash) && (a_mem != nullptr)) {
 				a_alignmentRequired ?
-					_aligned_free(a_mem) :
-					free(a_mem);
+					scalable_aligned_free(a_mem) :
+					scalable_free(a_mem);
             }
         }
 
@@ -150,8 +150,8 @@ namespace
                 return Allocate(a_self, a_newSize, a_alignment, a_alignmentRequired);
             else
                 return a_alignmentRequired ?
-                _aligned_realloc(a_oldMem, a_newSize, a_alignment) :
-                realloc(a_oldMem, a_newSize);
+               scalable_aligned_realloc(a_oldMem, a_newSize, a_alignment) :
+                scalable_realloc(a_oldMem, a_newSize);
         }
 
         void ReplaceAllocRoutines()

@@ -43,18 +43,9 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 
 extern "C" void __declspec(dllexport) APIENTRY Initialize() {
 
-		if (config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)"))
-		{
-			_MESSAGE("loaded config successfully");
-		}
-		else
-		{
-			_MESSAGE("config load failed, using default config");
-		}
-
+	config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)");
 		
-		_MESSAGE("Preload Patching");
-		patches::PatchPreload();
+	patches::PatchPreload();
 
 }
 
