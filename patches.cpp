@@ -30,7 +30,7 @@ namespace patches
         if (config::patchSleepWaitTime)
             PatchSleepWaitTime();
 
-        if (config::patchTreeLODReferenceCaching)
+        if (config::patchTreeLODReferenceCaching && config::patchFormCaching)
             PatchTreeLODReferenceCaching();
 
         //if (config::patchWaterflowAnimation)

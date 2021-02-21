@@ -151,7 +151,7 @@ namespace
                 return Allocate(a_self, a_newSize, a_alignment, a_alignmentRequired);
             else
                 return a_alignmentRequired ?
-               scalable_aligned_realloc(a_oldMem, a_newSize, a_alignment) :
+                scalable_aligned_realloc(a_oldMem, a_newSize, a_alignment) :
                 scalable_realloc(a_oldMem, a_newSize);
         }
 
