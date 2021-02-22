@@ -61,5 +61,8 @@ namespace config
     extern bool experimentalSaveGameMaxSize;
     extern bool experimentalTreatAllModsAsMasters;
 
+    // Allocators
+    extern int selectAllocators;
+
     bool LoadConfig(const std::string& path);
 }

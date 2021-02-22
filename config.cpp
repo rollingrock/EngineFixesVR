@@ -62,6 +62,9 @@ namespace config
     bool experimentalSaveGameMaxSize = false;
     bool experimentalTreatAllModsAsMasters = false;
 
+    // allocators
+    int selectAllocators = 0;
+
     bool LoadConfig(const std::string& path)
     {
         INIReader ini(path);
@@ -129,6 +132,9 @@ namespace config
         // Experimental
         experimentalSaveGameMaxSize = ini.GetBoolean("Experimental", "SaveGameMaxSize", false);
         experimentalTreatAllModsAsMasters = ini.GetBoolean("Experimental", "TreatAllModsAsMasters", false);
+
+        // Allocators
+        selectAllocators = ini.GetInteger("Allocators", "SelectAllocator", 0);
 
         warnDupeAddonNodes = false;
 

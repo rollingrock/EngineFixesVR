@@ -8,6 +8,7 @@
 #include "SKSE/Trampoline.h"
 
 #include "RE/MemoryManager.h"
+#include "config.h"
 
 #include "tbb/scalable_allocator.h"
 
@@ -125,7 +126,7 @@ namespace
 
     namespace MemoryManager
     {
-        void* Allocate(RE::MemoryManager*, std::size_t a_size, std::uint32_t a_alignment, bool a_alignmentRequired)
+        void* Allocate_tbb(RE::MemoryManager*, std::size_t a_size, std::uint32_t a_alignment, bool a_alignmentRequired)
         {
             if (a_size > 0) {
                 return a_alignmentRequired ?
@@ -136,7 +137,7 @@ namespace
                 return g_trash;
         }
 
-        void Deallocate(RE::MemoryManager*, void* a_mem, bool a_alignmentRequired)
+        void Deallocate_tbb(RE::MemoryManager*, void* a_mem, bool a_alignmentRequired)
         {
             if ((a_mem != g_trash) && (a_mem != nullptr)) {
 				a_alignmentRequired ?
@@ -145,26 +146,80 @@ namespace
             }
         }
 
-        void* Reallocate(RE::MemoryManager* a_self, void* a_oldMem, std::size_t a_newSize, std::uint32_t a_alignment, bool a_alignmentRequired)
+        void* Reallocate_tbb(RE::MemoryManager* a_self, void* a_oldMem, std::size_t a_newSize, std::uint32_t a_alignment, bool a_alignmentRequired)
         {
             if (a_oldMem == g_trash)
-                return Allocate(a_self, a_newSize, a_alignment, a_alignmentRequired);
+                return Allocate_tbb(a_self, a_newSize, a_alignment, a_alignmentRequired);
             else
                 return a_alignmentRequired ?
                 scalable_aligned_realloc(a_oldMem, a_newSize, a_alignment) :
                 scalable_realloc(a_oldMem, a_newSize);
         }
 
+        void* Allocate_sys(RE::MemoryManager*, std::size_t a_size, std::uint32_t a_alignment, bool a_alignmentRequired)
+        {
+            if (a_size > 0) {
+                return a_alignmentRequired ?
+                    _aligned_malloc(a_size, a_alignment) :
+                    malloc(a_size);
+            }
+            else
+                return g_trash;
+        }
+
+        void Deallocate_sys(RE::MemoryManager*, void* a_mem, bool a_alignmentRequired)
+        {
+            if ((a_mem != g_trash) && (a_mem != nullptr)) {
+				a_alignmentRequired ?
+					_aligned_free(a_mem) :
+					free(a_mem);
+            }
+        }
+
+        void* Reallocate_sys(RE::MemoryManager* a_self, void* a_oldMem, std::size_t a_newSize, std::uint32_t a_alignment, bool a_alignmentRequired)
+        {
+            if (a_oldMem == g_trash)
+                return Allocate_sys(a_self, a_newSize, a_alignment, a_alignmentRequired);
+            else
+                return a_alignmentRequired ?
+                _aligned_realloc(a_oldMem, a_newSize, a_alignment) :
+                realloc(a_oldMem, a_newSize);
+        }
+
         void ReplaceAllocRoutines()
         {
+            switch (config::selectAllocators) {
+            case 0: {
+                void* allocFunc = &Allocate_sys;
+                void* deallocFunc = &Deallocate_sys;
+                void* reallocFunc = &Reallocate_sys;
+                break;
+            }
+            case 1: {
+                void* allocFunc = &Allocate_tbb;
+                void* deallocFunc = &Deallocate_tbb;
+                void* reallocFunc = &Reallocate_tbb;
+                break;
+            }
+            default: {
+                void* allocFunc = &Allocate_sys;
+                void* deallocFunc = &Deallocate_sys;
+                void* reallocFunc = &Reallocate_sys;
+                break;
+            }
+            }
+
+            void* allocFunc = &Allocate_sys;
+            void* deallocFunc = &Deallocate_sys;
+            void* reallocFunc = &Reallocate_sys;
             using tuple_t = std::tuple<std::uint64_t, std::size_t, void*>;
             const std::array todo{
                 //tuple_t{ 66859, 0x248, &Allocate },
                 //tuple_t{ 66861, 0x114, &Deallocate },
                 //tuple_t{ 66860, 0xA7, &Reallocate },
-                tuple_t{ 0xc3d0e0, 0x248, &Allocate },
-                tuple_t{ 0xc3d3e0, 0x114, &Deallocate },
-                tuple_t{ 0xc3d330, 0xA7, &Reallocate },
+                tuple_t{ 0xc3d0e0, 0x248, allocFunc },
+                tuple_t{ 0xc3d3e0, 0x114, deallocFunc },
+                tuple_t{ 0xc3d330, 0xA7, reallocFunc },
             };
 
             for (const auto& [id, size, func] : todo)
