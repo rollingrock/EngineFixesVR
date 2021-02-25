@@ -190,15 +190,15 @@ namespace
         {
             switch (config::selectAllocators) {
             case 0: {
-                void* allocFunc = &Allocate_sys;
-                void* deallocFunc = &Deallocate_sys;
-                void* reallocFunc = &Reallocate_sys;
-                break;
-            }
-            case 1: {
                 void* allocFunc = &Allocate_tbb;
                 void* deallocFunc = &Deallocate_tbb;
                 void* reallocFunc = &Reallocate_tbb;
+                break;
+            }
+            case 1: {
+                void* allocFunc = &Allocate_sys;
+                void* deallocFunc = &Deallocate_sys;
+                void* reallocFunc = &Reallocate_sys;
                 break;
             }
             default: {

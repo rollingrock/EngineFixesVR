@@ -806,6 +806,61 @@ namespace fixes
         _VMESSAGE("success");
         return true;
     }
+
+    bool PatchShadowSceneCrash() {
+        _MESSAGE("--- Patching ShadowSceneNode function common crash");
+
+        REL::Offset<std::uintptr_t> jumpLoc    = 0x12f86dd;
+        REL::Offset<std::uintptr_t> retFunc    = 0x12f8780;
+        REL::Offset<std::uintptr_t> callLoc    = 0x12f86e6;
+
+        for (int i = 0; i < 9; ++i)
+        {
+            SKSE::SafeWrite8(jumpLoc.GetAddress() + i, 0x90);
+        }
+
+
+        struct Patch : SKSE::CodeGenerator
+        {
+            Patch(std::uintptr_t rf, std::uintptr_t rt) : SKSE::CodeGenerator()
+            {
+                Xbyak::Label returnTrue;
+                Xbyak::Label returnFalse;
+                Xbyak::Label retAddr;
+
+                mov(rdi, rcx);
+                mov(rcx, rdx);
+                mov(rbx, rdx);
+                mov(r8, ptr[rax + 0x18]);
+
+                test(r8, r8);
+                jz(returnTrue);
+                jmp(ptr[rip+returnFalse]);
+
+                L(returnFalse);
+                dq(rf);
+
+                L(returnTrue);
+                jmp(ptr[rip+retAddr]);
+
+                L(retAddr);
+                dq(rt);
+
+            }
+        };
+
+        Patch patch(callLoc.GetAddress(), retFunc.GetAddress());
+        patch.finalize();
+
+        _VMESSAGE("Installing Patch");
+
+        auto trampoline = SKSE::GetTrampoline();
+        trampoline->Write5Branch(jumpLoc.GetAddress(), reinterpret_cast<std::uintptr_t>(patch.getCode()));
+
+        return true;
+    }
+
+
 }
 
 

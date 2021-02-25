@@ -19,6 +19,7 @@ namespace fixes
     bool PatchRemovedSpellBook();
     bool PatchFixAbilityConditionBug();
     bool PatchFixBuySellStackSpeechGain();
+    bool PatchShadowSceneCrash();
 
     bool PatchAll();
 }

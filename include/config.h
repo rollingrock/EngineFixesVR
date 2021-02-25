@@ -49,6 +49,7 @@ namespace config
     extern bool fixWeaponBlockScaling;
     extern bool fixAbilityConditionBug;
     extern bool fixBuySellStackSpeechGain;
+    extern bool fixShadowSceneCrash;
 
 
     // Warnings

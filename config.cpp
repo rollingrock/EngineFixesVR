@@ -51,6 +51,7 @@ namespace config
     bool fixWeaponBlockScaling = true;
     bool fixAbilityConditionBug = true;
     bool fixBuySellStackSpeechGain = true;
+    bool fixShadowSceneCrash = true;
 
     // Warnings
     bool warnDupeAddonNodes = true;
@@ -122,6 +123,7 @@ namespace config
         //fixWeaponBlockScaling = ini.GetBoolean("Fixes", "WeaponBlockScaling", true);
         fixAbilityConditionBug = ini.GetBoolean("Fixes", "FixAbilityConditionBug", true);
         fixBuySellStackSpeechGain = ini.GetBoolean("Fixes", "FixBuySellStackSpeechGain", true);
+        fixShadowSceneCrash = ini.GetBoolean("Fixes", "FixShadowSceneCrash", true);
 
         // Warnings
         //warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);
