@@ -188,30 +188,31 @@ namespace
 
         void ReplaceAllocRoutines()
         {
+
+            void* allocFunc = &Allocate_tbb;
+            void* deallocFunc = &Deallocate_tbb;
+            void* reallocFunc = &Reallocate_tbb;
             switch (config::selectAllocators) {
             case 0: {
-                void* allocFunc = &Allocate_tbb;
-                void* deallocFunc = &Deallocate_tbb;
-                void* reallocFunc = &Reallocate_tbb;
+                allocFunc = &Allocate_tbb;
+                deallocFunc = &Deallocate_tbb;
+                reallocFunc = &Reallocate_tbb;
                 break;
             }
             case 1: {
-                void* allocFunc = &Allocate_sys;
-                void* deallocFunc = &Deallocate_sys;
-                void* reallocFunc = &Reallocate_sys;
+                allocFunc = &Allocate_sys;
+                deallocFunc = &Deallocate_sys;
+                reallocFunc = &Reallocate_sys;
                 break;
             }
             default: {
-                void* allocFunc = &Allocate_sys;
-                void* deallocFunc = &Deallocate_sys;
-                void* reallocFunc = &Reallocate_sys;
+                allocFunc = &Allocate_sys;
+                deallocFunc = &Deallocate_sys;
+                reallocFunc = &Reallocate_sys;
                 break;
             }
             }
 
-            void* allocFunc = &Allocate_sys;
-            void* deallocFunc = &Deallocate_sys;
-            void* reallocFunc = &Reallocate_sys;
             using tuple_t = std::tuple<std::uint64_t, std::size_t, void*>;
             const std::array todo{
                 //tuple_t{ 66859, 0x248, &Allocate },
