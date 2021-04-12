@@ -28,6 +28,10 @@ To install drop in your SKSE/Plugins the dll and ini file.   Configure the ini f
 
 Also the "(Part 2) Engine Fixes - skse64 Preloader and TBB Lib" zip file needs to be extracted to your main SkyrimVR folder or the plugin will not load correctly
 
+# Permissions
+
+reddit user u/xMindweaverx does not have my permission to use this mod for any purpose.  He has singlehandedly destroyed the r/fo4vr subreddit and community.
+
 # Credits
 
 Most I have done here is fix offsets and update some assembly code to match the VR binary.  All code design and original ideas credit goes to aers and the people they list in the mod page credits:
