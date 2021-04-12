@@ -30,7 +30,7 @@ Also the "(Part 2) Engine Fixes - skse64 Preloader and TBB Lib" zip file needs t
 
 # Permissions
 
-reddit user u/xMindweaverx does not have my permission to use this mod for any purpose.  He has singlehandedly destroyed the r/fo4vr subreddit and community.  
+reddit troll mod u/xMindweaverx does not have my permission to use this mod for any purpose.  He has singlehandedly destroyed the r/fo4vr subreddit and community.  
 
 Please join r/fallout_VR for your fallout VR modding and support needs.
 
