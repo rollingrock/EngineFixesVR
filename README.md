@@ -1,5 +1,7 @@
 # EngineFixesVR
-Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.com/skyrimspecialedition/mods/17230
+Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  Go to https://www.nexusmods.com/skyrimspecialedition/mods/17230 for the SE mod.
+
+### PLEASE DO NOT REQUEST SUPPORT FOR THIS VERSION OF THE MOD ON NEXUS.    IF YOU HAVE ISSUES CONTACT ME OR POST AN ISSUE HERE
 
 # Build Dependencies
 - [toml++](https://marzer.github.io/tomlplusplus/index.html)
