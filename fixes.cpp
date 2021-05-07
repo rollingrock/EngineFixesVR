@@ -60,6 +60,10 @@ namespace fixes
             PatchFixBuySellStackSpeechGain();
         }
 
+        if (config::fixShadowSceneCrash) {
+            PatchShadowSceneCrash();
+        }
+
         return true;
     }
 }

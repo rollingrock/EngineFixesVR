@@ -4,7 +4,7 @@
 #include "SKSE/Trampoline.h"
 #include "RE/NiNode.h"
 
-#include "tbb/concurrent_hash_map.h"
+#include "oneapi/tbb/concurrent_hash_map.h"
 
 #include "skse64/GameData.h"
 #include "skse64/NiObjects.h"
@@ -12,6 +12,8 @@
 #include "BGSDistantTreeBlock_VR.h"
 #include "TreeLOD.h"
 #include "patches.h"
+
+#include "treelodreferencecaching.h"
 
 namespace patches
 {
@@ -27,6 +29,13 @@ namespace patches
     REL::Offset<_LookupFormByID> LookupFormByID(0x1a3f60);    // was 194230
 
     tbb::concurrent_hash_map<uint32_t, RE::NiPointer<RE::TESObjectREFR> > referencesFormCache;
+
+    void CellEventHandler::resetMap() {
+        referencesFormCache.clear();
+
+        auto size = referencesFormCache.size();
+       // _MESSAGE("size %d", size);
+    }
 
     void InvalidateCachedForm(uint32_t FormId)
     {

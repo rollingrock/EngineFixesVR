@@ -54,6 +54,12 @@
     <ClCompile Include="fixes\doubleperkapply.cpp">
       <Filter>src\fixes</Filter>
     </ClCompile>
+    <ClCompile Include="memorymanager.cpp">
+      <Filter>src\patches</Filter>
+    </ClCompile>
+    <ClCompile Include="savedAddedSoundCategories.cpp">
+      <Filter>src\patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\version.h">
@@ -87,6 +93,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\fixes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="treelodreferencecaching.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

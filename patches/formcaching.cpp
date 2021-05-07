@@ -1,6 +1,6 @@
 ﻿#include <type_traits>
 
-#include "tbb/concurrent_hash_map.h"
+#include "oneapi/tbb/concurrent_hash_map.h"
 
 #include "RE/Skyrim.h"
 #include "SKSE/API.h"

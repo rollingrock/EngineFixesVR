@@ -1,6 +1,10 @@
 # EngineFixesVR
 Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.com/skyrimspecialedition/mods/17230
 
+# Build Dependencies
+- [toml++](https://marzer.github.io/tomlplusplus/index.html)
+- tbb
+
 # Current working patches:
 - Max STDIO patch
 - Enabled AchievementsWithMods

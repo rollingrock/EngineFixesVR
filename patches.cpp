@@ -8,6 +8,7 @@ namespace patches
             PatchDisableChargenPrecache();
             */
 
+
         if (config::patchFormCaching)
             PatchFormCaching();
 
@@ -20,8 +21,8 @@ namespace patches
         //if (config::patchRegularQuicksaves)
         //    PatchRegularQuicksaves();
 
-        //if (config::patchSaveAddedSoundCategories)
-        //    PatchSaveAddedSoundCategories();
+        if (config::patchSaveAddedSoundCategories)
+            PatchSaveAddedSoundCategories();
 
         //if (config::patchScrollingDoesntSwitchPOV)
         //    PatchScrollingDoesntSwitchPOV();
@@ -29,7 +30,7 @@ namespace patches
         if (config::patchSleepWaitTime)
             PatchSleepWaitTime();
 
-        if (config::patchTreeLODReferenceCaching)
+        if (config::patchTreeLODReferenceCaching && config::patchFormCaching)
             PatchTreeLODReferenceCaching();
 
         //if (config::patchWaterflowAnimation)
@@ -40,6 +41,15 @@ namespace patches
 
         //if (config::experimentalTreatAllModsAsMasters)
         //    PatchTreatAllModsAsMasters();
+
+
+        return true;
+    }
+
+    bool PatchPreload() {
+
+        if (config::patchMemoryManager)
+            PatchMemoryManager();
 
         return true;
     }

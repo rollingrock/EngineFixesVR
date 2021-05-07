@@ -18,6 +18,8 @@ namespace config
     extern bool patchTreeLODReferenceCaching;
     extern bool patchWaterflowAnimation;
     extern float waterflowSpeed;
+    extern bool patchMemoryManager;
+    extern bool patchTreeLODClearMap;
 
     // Fixes
     extern bool fixArcheryDownwardAiming;
@@ -47,6 +49,7 @@ namespace config
     extern bool fixWeaponBlockScaling;
     extern bool fixAbilityConditionBug;
     extern bool fixBuySellStackSpeechGain;
+    extern bool fixShadowSceneCrash;
 
 
     // Warnings
@@ -58,6 +61,9 @@ namespace config
     // Experimental
     extern bool experimentalSaveGameMaxSize;
     extern bool experimentalTreatAllModsAsMasters;
+
+    // Allocators
+    extern int selectAllocators;
 
     bool LoadConfig(const std::string& path);
 }

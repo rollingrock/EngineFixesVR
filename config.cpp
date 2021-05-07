@@ -16,9 +16,11 @@ namespace config
     bool patchSaveAddedSoundCategories = true;
     bool patchScrollingDoesntSwitchPOV = false;
     bool patchSleepWaitTime = false;
+    bool patchMemoryManager = true;
     float sleepWaitTimeModifier = 0.3F;
     bool patchWaterflowAnimation = true;
     bool patchTreeLODReferenceCaching = true;
+    bool patchTreeLODClearMap = false;
     float waterflowSpeed = 20.0;
 
     // Fixes
@@ -49,6 +51,7 @@ namespace config
     bool fixWeaponBlockScaling = true;
     bool fixAbilityConditionBug = true;
     bool fixBuySellStackSpeechGain = true;
+    bool fixShadowSceneCrash = true;
 
     // Warnings
     bool warnDupeAddonNodes = true;
@@ -59,6 +62,9 @@ namespace config
     // Experimental
     bool experimentalSaveGameMaxSize = false;
     bool experimentalTreatAllModsAsMasters = false;
+
+    // allocators
+    int selectAllocators = 0;
 
     bool LoadConfig(const std::string& path)
     {
@@ -79,11 +85,13 @@ namespace config
         patchFormCaching = ini.GetBoolean("Patches", "FormCaching", true);
         patchMaxStdio = ini.GetBoolean("Patches", "MaxStdio", true);
 //        patchRegularQuicksaves = ini.GetBoolean("Patches", "RegularQuicksaves", false);
-//        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
+        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
 //        patchScrollingDoesntSwitchPOV = ini.GetBoolean("Patches", "ScrollingDoesntSwitchPOV", false);
         patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
         sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
         patchTreeLODReferenceCaching = ini.GetBoolean("Patches", "TreeLODReferenceCaching", true);
+        patchTreeLODClearMap = ini.GetBoolean("Patches", "TreeLODClearMap", false);
+        patchMemoryManager = ini.GetBoolean("Patches", "MemoryManager", true);
 //        patchWaterflowAnimation = ini.GetBoolean("Patches", "WaterflowAnimation", true);
 //        waterflowSpeed = static_cast<float>(ini.GetReal("Patches", "WaterflowSpeed", 20.0));
 
@@ -115,6 +123,7 @@ namespace config
         //fixWeaponBlockScaling = ini.GetBoolean("Fixes", "WeaponBlockScaling", true);
         fixAbilityConditionBug = ini.GetBoolean("Fixes", "FixAbilityConditionBug", true);
         fixBuySellStackSpeechGain = ini.GetBoolean("Fixes", "FixBuySellStackSpeechGain", true);
+        fixShadowSceneCrash = ini.GetBoolean("Fixes", "FixShadowSceneCrash", true);
 
         // Warnings
         //warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);
@@ -125,6 +134,9 @@ namespace config
         // Experimental
         experimentalSaveGameMaxSize = ini.GetBoolean("Experimental", "SaveGameMaxSize", false);
         experimentalTreatAllModsAsMasters = ini.GetBoolean("Experimental", "TreatAllModsAsMasters", false);
+
+        // Allocators
+        selectAllocators = ini.GetInteger("Allocators", "SelectAllocator", 0);
 
         warnDupeAddonNodes = false;
 

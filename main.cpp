@@ -12,7 +12,12 @@
 #include "fixes.h"
 #include "utils.h"
 
+#include "treelodreferencecaching.h"
+
 #include "version.h"  // VERSION_VERSTRING, VERSION_MAJOR
+
+patches::CellEventHandler g_cellEventHandler;
+
 
 void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 	switch (a_msg->type)
@@ -25,6 +30,9 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 		if (config::cleanSKSECosaves)
 			CleanSKSECosaves();
 
+		if (config::patchSaveAddedSoundCategories)
+			patches::LoadVolumes();
+
 		_MESSAGE("post-load patches complete");
 
 		DataHandler* dh = DataHandler::GetSingleton();
@@ -32,12 +40,27 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 		_VMESSAGE("dh->modList.loadedMods = %016I64X", &dh->modList.loadedModCount);
 
 		_VMESSAGE("Loaded Mods = %x", dh->modList.loadedModCount);
+
+		if (config::patchTreeLODClearMap) {
+			_MESSAGE("Turning on Cell Event handler to clear tree LOD map");
+			auto eventDispatchers = GetEventDispatcherList();
+			eventDispatchers->unk1B8.AddEventSink(&g_cellEventHandler);  // unk1b8 is the cell event dispatcher
+		}
 		}
 		break;
 	default:
 		break;
 	}
 	return;
+}
+
+
+extern "C" void __declspec(dllexport) APIENTRY Initialize() {
+
+	config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)");
+		
+	patches::PatchPreload();
+
 }
 
 
@@ -80,18 +103,16 @@ extern "C" {
 			return false;
 		}
 
-		if (!SKSE::AllocTrampoline(1 << 11))
+		auto messaging = SKSE::GetMessagingInterface();
+
+		if (!messaging->RegisterListener("SKSE", MessageHandler))
 		{
+			_MESSAGE("failed to init Message Handler");
 			return false;
 		}
 
-		//Sleep(10000);
-		//auto messaging = SKSE::GetMessagingInterface();
-
-		//if (!messaging->RegisterListener("SKSE", MessageHandler))
-		//{
-		//	return false;
-		//}
+		_MESSAGE("Messenger loaded");
+		SKSE::AllocTrampoline(1 << 11);
 
 		if (config::verboseLogging)
 		{
@@ -100,21 +121,13 @@ extern "C" {
 			SKSE::Logger::SetFlushLevel(SKSE::Logger::Level::kVerboseMessage);
 		}
 
-		if (config::LoadConfig(R"(.\Data\SKSE\plugins\EngineFixesVR.ini)"))
-		{
-			_MESSAGE("loaded config successfully");
-		}
-		else
-		{
-			_MESSAGE("config load failed, using default config");
-		}
 
 		std::uintptr_t base = REL::Module::BaseAddr();
 		_MESSAGE("baseaddr = %016I64X", base);
 
-		REL::Offset<std::uint32_t*> testit(0x194230);     // SSE has this offset as 0x194230
-		_VMESSAGE("testit = %016I64X", testit.GetAddress());
-		_VMESSAGE("testit = %016I64X", testit.GetOffset());
+//		REL::Offset<std::uint32_t*> testit(0x194230);     // SSE has this offset as 0x194230
+		//_VMESSAGE("testit = %016I64X", testit.GetAddress());
+		//_VMESSAGE("testit = %016I64X", testit.GetOffset());
 
 		patches::PatchAll();
 
