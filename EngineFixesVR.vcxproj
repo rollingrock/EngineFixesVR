@@ -187,6 +187,7 @@
     <ClCompile Include="patches\formcaching.cpp" />
     <ClCompile Include="patches\treelodreferencecaching.cpp" />
     <ClCompile Include="memorymanager.cpp" />
+    <ClCompile Include="savedAddedSoundCategories.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>

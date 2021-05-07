@@ -10,7 +10,7 @@ namespace patches
     bool PatchFormCaching();
     bool PatchMaxStdio();
     //bool PatchRegularQuicksaves();
-    //bool PatchSaveAddedSoundCategories();
+    bool PatchSaveAddedSoundCategories();
     //bool PatchScrollingDoesntSwitchPOV();
     bool PatchSleepWaitTime();
     bool PatchTreeLODReferenceCaching();
@@ -21,7 +21,7 @@ namespace patches
     //bool PatchSaveGameMaxSize();
     //bool PatchTreatAllModsAsMasters();
 
-//    void LoadVolumes();
+    void LoadVolumes();
 
     bool PatchAll();
     bool PatchPreload();

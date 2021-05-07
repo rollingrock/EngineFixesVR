@@ -21,8 +21,8 @@ namespace patches
         //if (config::patchRegularQuicksaves)
         //    PatchRegularQuicksaves();
 
-        //if (config::patchSaveAddedSoundCategories)
-        //    PatchSaveAddedSoundCategories();
+        if (config::patchSaveAddedSoundCategories)
+            PatchSaveAddedSoundCategories();
 
         //if (config::patchScrollingDoesntSwitchPOV)
         //    PatchScrollingDoesntSwitchPOV();

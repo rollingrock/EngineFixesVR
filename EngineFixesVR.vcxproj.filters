@@ -57,6 +57,9 @@
     <ClCompile Include="memorymanager.cpp">
       <Filter>src\patches</Filter>
     </ClCompile>
+    <ClCompile Include="savedAddedSoundCategories.cpp">
+      <Filter>src\patches</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\version.h">

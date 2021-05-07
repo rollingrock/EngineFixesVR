@@ -30,6 +30,9 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 		if (config::cleanSKSECosaves)
 			CleanSKSECosaves();
 
+		if (config::patchSaveAddedSoundCategories)
+			patches::LoadVolumes();
+
 		_MESSAGE("post-load patches complete");
 
 		DataHandler* dh = DataHandler::GetSingleton();

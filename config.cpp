@@ -85,7 +85,7 @@ namespace config
         patchFormCaching = ini.GetBoolean("Patches", "FormCaching", true);
         patchMaxStdio = ini.GetBoolean("Patches", "MaxStdio", true);
 //        patchRegularQuicksaves = ini.GetBoolean("Patches", "RegularQuicksaves", false);
-//        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
+        patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
 //        patchScrollingDoesntSwitchPOV = ini.GetBoolean("Patches", "ScrollingDoesntSwitchPOV", false);
         patchSleepWaitTime = ini.GetBoolean("Patches", "SleepWaitTime", false);
         sleepWaitTimeModifier = static_cast<float>(ini.GetReal("Patches", "SleepWaitTimeModifier", 0.3));
