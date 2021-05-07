@@ -23,6 +23,7 @@ Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  https://www.nexusmods.co
 - PatchPerkFragmentIsRunning
 - PatchRemovedSpellBook
 - PatchSleepWaitTimeModifier
+- PatchSavedAddedSoundCategories.cpp
 - FixAbilityConditionBug - Implemented c++ version of meh321's BugFixesSSE c# project
 - FixBuySellStackSpeechGain - Implemented c++ version of meh321's BugFixesSSE c# project
 
