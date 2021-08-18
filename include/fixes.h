@@ -11,6 +11,7 @@ namespace fixes
     bool PatchCellInit();
     bool PatchAnimationLoadSignedCrash();
     bool PatchBSLightingAmbientSpecular();
+    bool PatchBSLightingShaderSetupGeometryParallax();
     bool PatchDoublePerkApply();
     bool PatchCalendarSkipping();
     bool PatchConjurationEnchantAbsorbs();
