@@ -28,6 +28,9 @@ namespace fixes
             PatchBSLightingAmbientSpecular();
         }
 
+        if (config::fixBSLightingShaderGeometryParallaxBug)
+            PatchBSLightingShaderSetupGeometryParallax();
+
         if (config::fixCalendarSkipping) {
             PatchCalendarSkipping();
         }

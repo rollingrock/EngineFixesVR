@@ -110,11 +110,11 @@ constexpr REL::ID g_RequestSaveScreenshot_offset(517224);
 // Calendar Skipping
 // E8 ? ? ? ? F6 87 DC 0B 00 00 01
 constexpr REL::ID Calendar_AdvanceTime_call_offset(35402);
-
+*/
 // BSLightingShader::SetupGeometry Parallax Technique fix
 // 8B C1 25 ? ? ? ? 41 0F 45 D0
-constexpr REL::ID offset_BSLightingShader_SetupGeometry_ParallaxTechniqueFix(100565);
-
+constexpr std::uintptr_t offset_BSLightingShader_SetupGeometry_ParallaxTechniqueFix = 0x1338f60;
+/*
 // Warnings
 
 // Dupe Addon Node index
