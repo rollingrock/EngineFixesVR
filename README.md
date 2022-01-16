@@ -5,7 +5,14 @@ Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  Go to https://www.nexusm
 
 # Build Dependencies
 - [toml++](https://marzer.github.io/tomlplusplus/index.html)
-- tbb
+- [tbb](https://github.com/oneapi-src/oneTBB)
+- [commonlibvr](https://github.com/lfrazer/CommonLibVR)
+- [sksevr](https://skse.silverlock.org/) - Include projects:
+    - common_vc14
+    - skse64
+    - skse64_common
+
+Add dependencies' `include` directory to `IncludePath` and output lib to `AdditionalLibraryDirectories`. Individual projects may be added as reference projects to EngineFixesVR so they will build first.
 
 # Current working patches:
 - Max STDIO patch
@@ -19,6 +26,7 @@ Port of SSE Engine Fixes from Skyrim SE for Skyrim VR.  Go to https://www.nexusm
 - PatchGHeapLeakDetectionCrash
 - PatchAnimationLoadSignedCrash
 - PatchBSLightingAmbientSpecular
+- PatchBSLightingShaderParallaxBug
 - PatchCalendarSkipping
 - PatchConjurationEnchantAbsorbs
 - PatchEquipShoutEventSpam
@@ -37,7 +45,7 @@ Also the "(Part 2) Engine Fixes - skse64 Preloader and TBB Lib" zip file needs t
 
 # Permissions
 
-reddit troll mod u/xMindweaverx does not have my permission to use this mod for any purpose.  He has singlehandedly destroyed the r/fo4vr subreddit and community.  
+reddit troll mod u/xMindweaverx does not have my permission to use this mod for any purpose.  He has singlehandedly destroyed the r/fo4vr subreddit and community.
 
 Please join r/fallout_VR for your fallout VR modding and support needs.
 
@@ -47,11 +55,11 @@ Most I have done here is fix offsets and update some assembly code to match the 
 
 - aers - original SSE mod author
 - Nukem -  more stuff than I can mention
-- Sniffleman/Ryan - Misc Fixes + CommonLibSSE 
+- Sniffleman/Ryan - Misc Fixes + CommonLibSSE
 - meh321 - research into tree LOD function (SSE fixes), bugfixes LE & port permissions, and for making BugFixesSSE source available so I can port it
 - sheson - skse plugin preloader for LE alongside meh
 - himika - scatter table implementation from libskyrim (LE), plus tons of research function/variable names
-- kassent - useful information from the source code of various skse plugins 
+- kassent - useful information from the source code of various skse plugins
 - Kole6738 - cosave cleaner idea+code
 - LStewieAL - Things ported from here
 
