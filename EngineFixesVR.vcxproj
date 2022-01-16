@@ -181,6 +181,7 @@
     <ClCompile Include="fixes.cpp" />
     <ClCompile Include="fixes\doubleperkapply.cpp" />
     <ClCompile Include="fixes\miscfixes.cpp" />
+    <ClCompile Include="fixes\shaderfixes.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="miscpatches.cpp" />
     <ClCompile Include="patches.cpp" />
