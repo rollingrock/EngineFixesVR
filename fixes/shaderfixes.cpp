@@ -106,8 +106,7 @@ namespace fixes
 					cmovnz(edx, r8d);
 
 					// new code
-					//cmp(ebx, 0x3);    // technique ID = PARALLAX
-					and_(eax, 0x21C03);
+					cmp(r14d, 0x3);    // technique ID = PARALLAX
 					cmovz(edx, r8d);  // set eye update true
 
 					// jmp out
@@ -122,7 +121,7 @@ namespace fixes
 			auto trampoline = SKSE::GetTrampoline();
 			trampoline->Write6Branch(BSLightingShader_SetupGeometry_ParallaxFixHookLoc.GetAddress(), uintptr_t(code.getCode()));
 		}
-		_VMESSAGE("patched");
+		_VMESSAGE("patched %016I64X", BSLightingShader_SetupGeometry_ParallaxFixHookLoc.GetAddress());
 		return true;
 	}
 }
