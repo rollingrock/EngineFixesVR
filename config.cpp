@@ -52,6 +52,7 @@ namespace config
     bool fixAbilityConditionBug = true;
     bool fixBuySellStackSpeechGain = true;
     bool fixShadowSceneCrash = true;
+    bool ShadowSceneNodeNullptrCrash = true;
 
     // Warnings
     bool warnDupeAddonNodes = true;
@@ -124,6 +125,7 @@ namespace config
         fixAbilityConditionBug = ini.GetBoolean("Fixes", "FixAbilityConditionBug", true);
         fixBuySellStackSpeechGain = ini.GetBoolean("Fixes", "FixBuySellStackSpeechGain", true);
         fixShadowSceneCrash = ini.GetBoolean("Fixes", "FixShadowSceneCrash", true);
+        fixShadowSceneNodeNullptrCrash = ini.GetBoolean("Fixes", "FixShadowSceneNodeNullptrCrash", true);
 
         // Warnings
         //warnDupeAddonNodes = ini.GetBoolean("Warnings", "DupeAddonNodes", true);

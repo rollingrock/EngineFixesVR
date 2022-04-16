@@ -860,6 +860,71 @@ namespace fixes
         return true;
     }
 
+    bool PatchShadowSceneNodeNullptrCrash()
+    {
+        // from https://github.com/aers/EngineFixesSkyrim64/blob/master/src/fixes/miscfixes.cpp#L1342-L1405
+        // written for 1.5.97 but should be compatible and adjusted for VR
+
+        // sub_1412BACA0 in 1.5.97, 0x12f86d0 in VR
+        const uint64_t faddr = 0x12f86d0; //offsets::ShadowSceneNodeNullPtr::FuncBase.address();
+        logger::trace(FMT_STRING("- workaround for crash in ShadowSceneNode::unk_{:X} -"), faddr);
+
+        const uint8_t *crashaddr = (uint8_t*)(uintptr_t)(faddr + 22);
+        /*
+                        mov     rax,qword ptr [rdx]
+        ... some movs ...
+        FF 50 18        call    qword ptr [rax+18h] // <--- crashes here because rax == 0
+        84 C0           test    al, al
+        74 ??           jz      short loc_LAB_1412f8703
+        */
+
+        static const uint8_t expected[] = { 0xFF, 0x50, 0x18, 0x84, 0xC0, 0x74 };
+        if(std::memcmp((const void*)crashaddr, expected, sizeof(expected)))
+        {
+            logger::trace("Code is not as expected, skipping patch"sv);
+            return false;
+        }
+
+        const int8_t disp8 = crashaddr[sizeof(expected)]; // jz short displacement (should be 0x16)
+        const uint8_t *jmpdstZero    = crashaddr + sizeof(expected) + disp8 + 1;
+        const uint8_t *jmpdstNonZero = crashaddr + sizeof(expected) + 1;
+
+        struct Code : Xbyak::CodeGenerator
+        {
+            Code(std::uintptr_t contNonzeroAddr, std::uintptr_t contZeroAddr)
+            {
+                Xbyak::Label contAddrLbl, zeroLbl, zeroAddrLbl;
+
+                // check for NULL
+                test(rax, rax);
+                jz(zeroLbl);
+
+                // original instructions minus jz short
+                db(expected, sizeof(expected) - 1);
+
+                jz(zeroLbl);
+                jmp(ptr[rip + contAddrLbl]);
+                L(zeroLbl);
+                jmp(ptr[rip + zeroAddrLbl]);
+
+                L(contAddrLbl);
+                dq(contNonzeroAddr);
+                L(zeroAddrLbl);
+                dq(contZeroAddr);
+            }
+        };
+
+        Code code(unrestricted_cast<std::uintptr_t>(jmpdstNonZero), unrestricted_cast<std::uintptr_t>(jmpdstZero));
+        code.ready();
+
+        logger::trace("installing fix"sv);
+        auto& trampoline = SKSE::GetTrampoline();
+        if (!trampoline.write_branch<5>(unrestricted_cast<std::uintptr_t>(crashaddr), trampoline.allocate(code)))
+            return false;
+
+        logger::trace("success"sv);
+        return true;
+    }
 
 }
 

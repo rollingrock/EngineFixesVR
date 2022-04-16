@@ -50,6 +50,7 @@ namespace config
     extern bool fixAbilityConditionBug;
     extern bool fixBuySellStackSpeechGain;
     extern bool fixShadowSceneCrash;
+    extern bool fixShadowSceneNodeNullptrCrash;
 
 
     // Warnings
