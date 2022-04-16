@@ -67,6 +67,9 @@ namespace fixes
             PatchShadowSceneCrash();
         }
 
+        if (config::fixShadowSceneNodeNullptrCrash)
+            PatchShadowSceneNodeNullptrCrash();
+
         return true;
     }
 }
