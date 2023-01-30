@@ -36,8 +36,8 @@ namespace patches
         //if (config::patchWaterflowAnimation)
         //    PatchWaterflowAnimation();
 
-        //if (config::experimentalSaveGameMaxSize)
-        //    PatchSaveGameMaxSize();
+        if (config::experimentalSaveGameMaxSize)
+            PatchSaveGameMaxSize();
 
         //if (config::experimentalTreatAllModsAsMasters)
         //    PatchTreatAllModsAsMasters();
