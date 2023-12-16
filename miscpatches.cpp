@@ -9,6 +9,7 @@
 
 #include "patches.h"
 #include "utils.h"
+#include "config.h"
 
 namespace patches
 {
@@ -57,7 +58,7 @@ namespace patches
             return false;
         }
 
-        const auto maxStdio = reinterpret_cast<decltype(&_setmaxstdio)>(GetProcAddress(crtStdioModule, "_setmaxstdio"))(2048);
+        const auto maxStdio = reinterpret_cast<decltype(&_setmaxstdio)>(GetProcAddress(crtStdioModule, "_setmaxstdio"))(config::patchMaxStdio);
 
         _VMESSAGE("max stdio set to %d", maxStdio);
 

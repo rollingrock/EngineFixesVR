@@ -11,7 +11,7 @@ namespace config
     bool patchDisableChargenPrecache = false;
     bool patchEnableAchievementsWithMods = true;
     bool patchFormCaching = true;
-    bool patchMaxStdio = true;
+    int patchMaxStdio = 4096;
     bool patchRegularQuicksaves = false;
     bool patchSaveAddedSoundCategories = true;
     bool patchScrollingDoesntSwitchPOV = false;
@@ -83,7 +83,7 @@ namespace config
  //       patchDisableChargenPrecache = ini.GetBoolean("Patches", "DisableChargenPrecache", false);
         patchEnableAchievementsWithMods = ini.GetBoolean("Patches", "EnableAchievementsWithMods", true);
         patchFormCaching = ini.GetBoolean("Patches", "FormCaching", true);
-        patchMaxStdio = ini.GetBoolean("Patches", "MaxStdio", true);
+        patchMaxStdio = ini.GetInteger("Patches", "MaxStdio", 4096);
 //        patchRegularQuicksaves = ini.GetBoolean("Patches", "RegularQuicksaves", false);
         patchSaveAddedSoundCategories = ini.GetBoolean("Patches", "SaveAddedSoundCategories", true);
 //        patchScrollingDoesntSwitchPOV = ini.GetBoolean("Patches", "ScrollingDoesntSwitchPOV", false);
