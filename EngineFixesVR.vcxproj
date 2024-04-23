@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\CommonLibVR2\include;$(SolutionDir)..\sksevr_2_00_12\src\sksevr;$(SolutionDir)..\sksevr_2_00_12\src;$(SolutionDir)lib;$(SolutionDir)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)..\tomlplusplus\include;E:\Documents\source\repos\sksevr_2_00_12\src\common\Release</IncludePath>
+    <IncludePath>$(SolutionDir)..\CommonLibVR\include;$(SolutionDir)..\sksevr_2_00_12\src\sksevr;$(SolutionDir)..\sksevr_2_00_12\src;$(SolutionDir)lib;$(SolutionDir)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)..\tomlplusplus\include;E:\Documents\source\repos\sksevr_2_00_12\src\common\Release</IncludePath>
     <LibraryPath>lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
