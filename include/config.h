@@ -9,7 +9,7 @@ namespace config
     extern bool patchDisableChargenPrecache;
     extern bool patchEnableAchievementsWithMods;
     extern bool patchFormCaching;
-    extern bool patchMaxStdio;
+    extern int patchMaxStdio;
     extern bool patchRegularQuicksaves;
     extern bool patchSaveAddedSoundCategories;
     extern bool patchScrollingDoesntSwitchPOV;
@@ -51,6 +51,7 @@ namespace config
     extern bool fixBuySellStackSpeechGain;
     extern bool fixShadowSceneCrash;
     extern bool fixShadowSceneNodeNullptrCrash;
+    extern bool fixFaceGenMorphDataHeadNullptrCrash;
 
 
     // Warnings

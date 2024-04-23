@@ -926,6 +926,127 @@ namespace fixes
         return true;
     }
 
+    bool PatchFaceGenMorphDataHeadNullptrCrash()
+    {
+        // written for VR
+
+        _VMESSAGE("- fix for crash in FaceGenMorphDataHead -");
+        // loc_1403E6250
+        /*
+        .....
+        .text:00000001403E627D        xor     r15d, r15d
+        .text:00000001403E6280        test    rdx, rdx           // rdx == 0 causes the first crash in a few instructions
+        .text:00000001403E6283    +-- jz      short loc_1403E6299
+        .text:00000001403E6285    |   lea     rdx, unk_142FCCBF8 // <-- rdx != 0, this is the good case and
+        .text:00000001403E628C    |   mov     rcx, rax           //      we want to continue here if everything is well
+        .text:00000001403E628F    |   call    NiAVObject__GetExtraDataByName_140CA6080
+        .text:00000001403E6294    |   mov     rbx, rax         // <--- This sometimes has rax == 0 -> second possibility how rbx ends up as 0
+        .text:00000001403E6297  +-|-- jmp     short loc_1403E629C
+        .text:00000001403E6299  | +-->mov     rbx, r15         // <--- if this is executed it'll crash on the next line since r15 is 0 here
+        .text:00000001403E629C  +---> mov     eax, [rbx+24h]
+        .text:00000001403E629F        comiss  xmm6, cs:dword_14152259C
+        .text:00000001403E62A6        jb      loc_1403E668F  // ---> This jumps to the function stack restore + return point
+        */
+        // What can we do here? There are two ways for rbx to end up NULL,
+        // so we need to move the last mov followed by comiss into the trampoline
+        // and wrap that into a check for rbx != 0.
+        // The 'mov rbx, r15' is also weird. Only the lower 32 bits of r15 are guaranteed to be 0,
+        // but then rbx is used as an address. So it's probably better to replace that instruction
+        // with 'xor ebx, ebx' to make sure our inserted check will catch it in all cases.
+
+        // TODO: There is probably a cleaner way to patch this without moving a float constant into the trampoline, but this is tested and works ok
+
+        REL::Offset<std::uintptr_t> baseFuncAddr = 0x3E6250;
+
+        // check that test rdx,rdx and jz short are there
+        uint8_t* testrdx = (uint8_t*)(uintptr_t)(baseFuncAddr.GetAddress() + 0x30);
+        static const uint8_t expectedTestRdxJz[] = { 0x48, 0x85, 0xD2, 0x74 };
+        if (std::memcmp(testrdx, expectedTestRdxJz, sizeof(expectedTestRdxJz)))
+            return false;
+
+        // Where does the jz short go?
+        const int8_t disp8 = testrdx[sizeof(expectedTestRdxJz)]; // jz short displacement (should be 0x14)
+        uint8_t* jmpdstZero = testrdx + sizeof(expectedTestRdxJz) + disp8 + 1;
+
+        // Is the zero case jump target 'mov rbx, r15'? (This is patched later)
+        static const uint8_t expectedMovRbx[] = { 0x49, 0x8B, 0xDF };
+        if (std::memcmp(jmpdstZero, expectedMovRbx, sizeof(expectedMovRbx)))
+            return false;
+
+        // Find the where to insert the trampoline jump and where the jump to the exit is
+        uint8_t* pUnsafeMov = jmpdstZero + sizeof(expectedMovRbx); // this is the mov that potentially causes a crash
+        if (pUnsafeMov[0] != 0x8B)
+            return false;
+
+        static const uint8_t copysize = 3; // mov -- can't just copy the comiss because it uses a relative address :<
+        const uint8_t* jbExit = pUnsafeMov + copysize + 7; // + comiss
+
+        // Make sure jb => exit is there as expected
+        static const uint8_t expectedJB[] = { 0x0f, 0x82 };
+        if (std::memcmp(jbExit, expectedJB, sizeof(expectedJB)))
+            return false;
+
+        // Get the jump offset
+        int32_t jbOffs = *(int32_t*)(jbExit + sizeof(expectedJB));
+
+        // Figure out where the function exit location is
+        const uint8_t* nextInst = jbExit + 2 + sizeof(int32_t);
+        const uint8_t* exitLoc = nextInst + jbOffs;
+
+        struct Code : SKSE::CodeGenerator
+        {
+            Code(const uint8_t* originalcode, std::uintptr_t pContLoc, std::uintptr_t pExitLoc) : SKSE::CodeGenerator()
+            {
+                Xbyak::Label zeroLbl, fltConstL;
+
+                test(rbx, rbx);
+                jz(zeroLbl);
+
+                db(originalcode, copysize); // the unsafe mov
+                comiss(xmm6, ptr[rip + fltConstL]);
+
+                jmp(ptr[rip]);
+                dq(pContLoc);
+
+                L(zeroLbl);
+                jmp(ptr[rip]);
+                dq(pExitLoc);
+
+                L(fltConstL);
+                dd(0x0BF800000); // -1.0f
+            }
+        };
+
+        Code code(pUnsafeMov, unrestricted_cast<std::uintptr_t>(jbExit), unrestricted_cast<std::uintptr_t>(exitLoc));
+        code.finalize();
+
+        _MESSAGE("installing fix");
+        auto trampoline = SKSE::GetTrampoline();
+        if (!trampoline->Write5Branch(unrestricted_cast<std::uintptr_t>(pUnsafeMov), reinterpret_cast<std::uintptr_t>(code.getCode()))) {
+            return false;
+        }
+            
+        // nop out the rest of the original code so that the diasm/debugger is less confused
+        static const uint8_t nop5[] = { 0x90, 0x90, 0x90, 0x90, 0x90 };
+        SKSE::SafeWriteBuf(uintptr_t(pUnsafeMov) + 5, nop5, sizeof(nop5));
+
+        // Fix rbx clear (3 bytes to cover)
+        struct Patch : SKSE::CodeGenerator
+        {
+            Patch()
+            {
+                xor_(ebx, ebx); // 2 bytes
+                nop();          // 1 byte
+            }
+        };
+        Patch patch;
+        patch.finalize();
+        assert(patch.getSize() == 3);
+        SKSE::SafeWriteBuf((uintptr_t)jmpdstZero, patch.getCode(), 3);
+
+        _VMESSAGE("success");
+        return true;
+    }
 }
 
 

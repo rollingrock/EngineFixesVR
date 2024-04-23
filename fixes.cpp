@@ -67,8 +67,13 @@ namespace fixes
             PatchShadowSceneCrash();
         }
 
-        if (config::fixShadowSceneNodeNullptrCrash)
+        if (config::fixShadowSceneNodeNullptrCrash){
             PatchShadowSceneNodeNullptrCrash();
+        }
+
+        if (config::fixFaceGenMorphDataHeadNullptrCrash) {
+            PatchFaceGenMorphDataHeadNullptrCrash();
+        }
 
         return true;
     }

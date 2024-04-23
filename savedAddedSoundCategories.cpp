@@ -69,11 +69,11 @@ namespace patches
 				}
 			}
 
-			std::ofstream file{ FILE_NAME, std::ios_base::out | std::ios_base::trunc };
-			if (!file)
-			{
-				//       logger::trace("warning: unable to save snct ini");
-			}
+            std::ofstream file{ FILE_NAME.data(), std::ios_base::out | std::ios_base::trunc};
+            if (!file)
+            {
+         //       logger::trace("warning: unable to save snct ini");
+            }
 
 			file << store;
 

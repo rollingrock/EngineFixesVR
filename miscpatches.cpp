@@ -9,6 +9,7 @@
 
 #include "patches.h"
 #include "utils.h"
+#include "config.h"
 
 namespace patches
 {
@@ -57,7 +58,7 @@ namespace patches
             return false;
         }
 
-        const auto maxStdio = reinterpret_cast<decltype(&_setmaxstdio)>(GetProcAddress(crtStdioModule, "_setmaxstdio"))(2048);
+        const auto maxStdio = reinterpret_cast<decltype(&_setmaxstdio)>(GetProcAddress(crtStdioModule, "_setmaxstdio"))(config::patchMaxStdio);
 
         _VMESSAGE("max stdio set to %d", maxStdio);
 
@@ -126,7 +127,19 @@ namespace patches
         return true;
     }
 
+    std::uintptr_t Win32FileType_CopyToBuffer = REL::Module::BaseAddr() + Win32FileType_CopyToBuffer_offset;
+    std::uintptr_t Win32FileType_ctor = REL::Module::BaseAddr() + Win32FileType_ctor_offset;
+    std::uintptr_t ScrapHeap_GetMaxSize = REL::Module::BaseAddr() + ScrapHeap_GetMaxSize_offset;
 
+    bool PatchSaveGameMaxSize()
+    {
+        _VMESSAGE("- save game max size -");
+        SKSE::SafeWrite8(Win32FileType_CopyToBuffer, 0x08);
+        SKSE::SafeWrite8(Win32FileType_ctor, 0x08);
+        SKSE::SafeWrite8(ScrapHeap_GetMaxSize, 0x08);
 
+        _VMESSAGE("success");
+        return true;
+    }
 
 }

@@ -131,18 +131,17 @@ constexpr REL::ID Call2_Unk_DataReload_func_offset(35589);
 // Refr Handle Limit
 // LookupRefrPtrByHandle uses this
 constexpr REL::ID g_RefrHandleArray_offset(514478);
-
+*/
 // Experimental
 
 // BB ? ? ? ? 4C 8B FA
-constexpr REL::ID Win32FileType_CopyToBuffer_offset(101985);
+constexpr std::uintptr_t Win32FileType_CopyToBuffer_offset = 0x137F344;
 // C6 83 ? ? ? ? ? BA ? ? ? ? ->
-constexpr REL::ID Win32FileType_ctor_offset(101962);
+constexpr std::uintptr_t Win32FileType_ctor_offset = 0x137E2CE;
 // E8 ? ? ? ? 8B D0 4C 8B CB ->
-constexpr REL::ID ScrapHeap_GetMaxSize_offset(35203);
+constexpr std::uintptr_t ScrapHeap_GetMaxSize_offset = 0x5A3064;
 
+/*
 // E8 ? ? ? ? 0F B6 D0 EB 02
 constexpr REL::ID TESFile_IsMaster_offset(13913);
-
-
 */

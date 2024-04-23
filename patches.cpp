@@ -15,7 +15,7 @@ namespace patches
         if (config::patchEnableAchievementsWithMods)
             PatchEnableAchievementsWithMods();
 
-        if (config::patchMaxStdio)
+        if (config::patchMaxStdio > 0)
             PatchMaxStdio();
 
         //if (config::patchRegularQuicksaves)
@@ -36,8 +36,8 @@ namespace patches
         //if (config::patchWaterflowAnimation)
         //    PatchWaterflowAnimation();
 
-        //if (config::experimentalSaveGameMaxSize)
-        //    PatchSaveGameMaxSize();
+        if (config::experimentalSaveGameMaxSize)
+            PatchSaveGameMaxSize();
 
         //if (config::experimentalTreatAllModsAsMasters)
         //    PatchTreatAllModsAsMasters();
