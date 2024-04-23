@@ -2,3 +2,4 @@
 *.lib
 Release/
 x64*/
+.vscode/
