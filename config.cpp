@@ -52,7 +52,7 @@ namespace config
     bool fixAbilityConditionBug = true;
     bool fixBuySellStackSpeechGain = true;
     bool fixShadowSceneCrash = true;
-    bool ShadowSceneNodeNullptrCrash = true;
+    bool fixShadowSceneNodeNullptrCrash = true;
     bool fixFaceGenMorphDataHeadNullptrCrash = true;
 
     // Warnings

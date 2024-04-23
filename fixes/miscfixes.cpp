@@ -867,9 +867,9 @@ namespace fixes
 
         // sub_1412BACA0 in 1.5.97, 0x12f86d0 in VR
         const uint64_t faddr = 0x12f86d0; //offsets::ShadowSceneNodeNullPtr::FuncBase.address();
-        logger::trace(FMT_STRING("- workaround for crash in ShadowSceneNode::unk_{:X} -"), faddr);
+        _MESSAGE(("- workaround for crash in ShadowSceneNode::unk_{:X} -"), faddr);
 
-        const uint8_t *crashaddr = (uint8_t*)(uintptr_t)(faddr + 22);
+        const uint8_t* crashaddr = (uint8_t*)(uintptr_t)(faddr + 22);
         /*
                         mov     rax,qword ptr [rdx]
         ... some movs ...
@@ -879,15 +879,15 @@ namespace fixes
         */
 
         static const uint8_t expected[] = { 0xFF, 0x50, 0x18, 0x84, 0xC0, 0x74 };
-        if(std::memcmp((const void*)crashaddr, expected, sizeof(expected)))
+        if (std::memcmp((const void*)crashaddr, expected, sizeof(expected)))
         {
-            logger::trace("Code is not as expected, skipping patch"sv);
+            _MESSAGE("Code is not as expected, skipping patch");
             return false;
         }
 
         const int8_t disp8 = crashaddr[sizeof(expected)]; // jz short displacement (should be 0x16)
-        const uint8_t *jmpdstZero    = crashaddr + sizeof(expected) + disp8 + 1;
-        const uint8_t *jmpdstNonZero = crashaddr + sizeof(expected) + 1;
+        const uint8_t* jmpdstZero = crashaddr + sizeof(expected) + disp8 + 1;
+        const uint8_t* jmpdstNonZero = crashaddr + sizeof(expected) + 1;
 
         struct Code : Xbyak::CodeGenerator
         {
@@ -917,12 +917,12 @@ namespace fixes
         Code code(unrestricted_cast<std::uintptr_t>(jmpdstNonZero), unrestricted_cast<std::uintptr_t>(jmpdstZero));
         code.ready();
 
-        logger::trace("installing fix"sv);
-        auto& trampoline = SKSE::GetTrampoline();
-        if (!trampoline.write_branch<5>(unrestricted_cast<std::uintptr_t>(crashaddr), trampoline.allocate(code)))
+        _MESSAGE("installing fix");
+        auto trampoline = SKSE::GetTrampoline();
+        if (!trampoline->Write5Branch(unrestricted_cast<std::uintptr_t>(crashaddr), reinterpret_cast<std::uintptr_t>(code.getCode())))
             return false;
 
-        logger::trace("success"sv);
+        _MESSAGE("success");
         return true;
     }
 
