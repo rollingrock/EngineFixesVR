@@ -28,6 +28,9 @@ namespace fixes
             PatchBSLightingAmbientSpecular();
         }
 
+        if (config::fixBSLightingShaderForceAlphaTest)
+            PatchBSLightingShaderForceAlphaTest();
+
         if (config::fixBSLightingShaderGeometryParallaxBug)
             PatchBSLightingShaderSetupGeometryParallax();
 
