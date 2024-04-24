@@ -63,7 +63,7 @@ namespace fixes
 
 	bool PatchBSLightingShaderForceAlphaTest()
 	{
-	   _VMESSAGE("- BSLightingShader Force Alpha Testing -");
+	   _VMESSAGE("- BSLightingShader Force Alpha Testing - unk_%016I64X -", BSBatchRenderer_SetupAndDrawPass_origLoc.GetAddress());
 	   {
 	       struct BSBatchRenderer_SetupAndDrawPass_Code : SKSE::CodeGenerator
 	       {
