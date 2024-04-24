@@ -866,10 +866,10 @@ namespace fixes
         // written for 1.5.97 but should be compatible and adjusted for VR
 
         // sub_1412BACA0 in 1.5.97, 0x12f86d0 in VR
-        const uint64_t faddr = 0x12f86d0; //offsets::ShadowSceneNodeNullPtr::FuncBase.address();
-        _MESSAGE(("- workaround for crash in ShadowSceneNode::unk_{:X} -"), faddr);
-
-        const uint8_t* crashaddr = (uint8_t*)(uintptr_t)(faddr + 22);
+        REL::Offset<std::uintptr_t> baseFuncAddr = 0x12f86d0;
+        const uint64_t faddr = baseFuncAddr.GetAddress(); //offsets::ShadowSceneNodeNullPtr::FuncBase.address();
+        _MESSAGE("- workaround for crash in ShadowSceneNode::unk_%016I64X -", faddr);
+        const uint8_t* crashaddr = (uint8_t*)(uintptr_t)(faddr + 0x16);
         /*
                         mov     rax,qword ptr [rdx]
         ... some movs ...
@@ -889,9 +889,9 @@ namespace fixes
         const uint8_t* jmpdstZero = crashaddr + sizeof(expected) + disp8 + 1;
         const uint8_t* jmpdstNonZero = crashaddr + sizeof(expected) + 1;
 
-        struct Code : Xbyak::CodeGenerator
+        struct Code : SKSE::CodeGenerator
         {
-            Code(std::uintptr_t contNonzeroAddr, std::uintptr_t contZeroAddr)
+            Code(std::uintptr_t contNonzeroAddr, std::uintptr_t contZeroAddr) : SKSE::CodeGenerator()
             {
                 Xbyak::Label contAddrLbl, zeroLbl, zeroAddrLbl;
 
