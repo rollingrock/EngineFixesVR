@@ -49,7 +49,7 @@ namespace fixes
 	{
 	   if (*(uintptr_t*)pass->m_Shader == BSLightingShader_vtbl.GetAddress() && alphaTest)
 	   {
-	       auto rawTechnique = technique - 0x4800002D;
+	       auto rawTechnique = technique - 0x4800002D; // 141337d12 LEA        EDI,[globalTechnique + -0x4800002d] bool BSLightingShader::SetupTechnique (uint32_t globalTechnique)
 	       auto subIndex = (rawTechnique >> 24) & 0x3F;
 	       if (subIndex != RAW_TECHNIQUE_EYE && subIndex != RAW_TECHNIQUE_ENVMAP && subIndex != RAW_TECHNIQUE_MULTILAYERPARALLAX && subIndex != RAW_TECHNIQUE_PARALLAX)
 	       {
