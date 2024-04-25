@@ -28,6 +28,9 @@ namespace fixes
             PatchBSLightingAmbientSpecular();
         }
 
+        if (config::fixBSLightingShaderForceAlphaTest)
+            PatchBSLightingShaderForceAlphaTest();
+
         if (config::fixBSLightingShaderGeometryParallaxBug)
             PatchBSLightingShaderSetupGeometryParallax();
 
@@ -65,6 +68,10 @@ namespace fixes
 
         if (config::fixShadowSceneCrash) {
             PatchShadowSceneCrash();
+        }
+
+        if (config::fixShadowSceneNodeNullptrCrash){
+            PatchShadowSceneNodeNullptrCrash();
         }
 
         if (config::fixFaceGenMorphDataHeadNullptrCrash) {

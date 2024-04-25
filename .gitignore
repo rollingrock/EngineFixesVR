@@ -1,2 +1,5 @@
 .vs
 *.lib
+Release/
+x64*/
+.vscode/

@@ -860,6 +860,136 @@ namespace fixes
         return true;
     }
 
+    bool PatchShadowSceneNodeNullptrCrash()
+    {
+        // from https://github.com/aers/EngineFixesSkyrim64/blob/master/src/fixes/miscfixes.cpp#L1342-L1405
+        // written for 1.5.97 but should be compatible and adjusted for VR
+
+        // sub_1412BACA0 in 1.5.97, 0x12f86d0 in VR
+        REL::Offset<std::uintptr_t> baseFuncAddr = 0x12f86d0;
+        const uint64_t faddr = baseFuncAddr.GetAddress(); //offsets::ShadowSceneNodeNullPtr::FuncBase.address();
+        _MESSAGE("- workaround for crash in ShadowSceneNode::unk_%016I64X -", faddr);
+        const uint8_t* crashaddr = (uint8_t*)(uintptr_t)(faddr + 0x16);
+        /*
+                        mov     rax,qword ptr [rdx]
+        ... some movs ...
+        FF 50 18        call    qword ptr [rax+18h] // <--- crashes here because rax == 0
+        84 C0           test    al, al
+        74 ??           jz      short loc_LAB_1412f8703
+        */
+
+        static const uint8_t expected[] = { 0xFF, 0x50, 0x18, 0x84, 0xC0, 0x74 };
+        if (std::memcmp((const void*)crashaddr, expected, sizeof(expected)))
+        {
+            _MESSAGE("Code is not as expected, skipping patch");
+            return false;
+        }
+
+        const int8_t disp8 = crashaddr[sizeof(expected)]; // jz short displacement (should be 0x16)
+        const uint8_t* jmpdstZero = crashaddr + sizeof(expected) + disp8 + 1;
+        const uint8_t* jmpdstNonZero = crashaddr + sizeof(expected) + 1;
+
+        struct Code : SKSE::CodeGenerator
+        {
+            Code(std::uintptr_t contNonzeroAddr, std::uintptr_t contZeroAddr) : SKSE::CodeGenerator()
+            {
+                Xbyak::Label contAddrLbl, zeroLbl, zeroAddrLbl;
+
+                // check for NULL
+                test(rax, rax);
+                jz(zeroLbl);
+
+                // original instructions minus jz short
+                db(expected, sizeof(expected) - 1);
+
+                jz(zeroLbl);
+                jmp(ptr[rip + contAddrLbl]);
+                L(zeroLbl);
+                jmp(ptr[rip + zeroAddrLbl]);
+
+                L(contAddrLbl);
+                dq(contNonzeroAddr);
+                L(zeroAddrLbl);
+                dq(contZeroAddr);
+            }
+        };
+
+        Code code(unrestricted_cast<std::uintptr_t>(jmpdstNonZero), unrestricted_cast<std::uintptr_t>(jmpdstZero));
+        code.ready();
+
+        _MESSAGE("installing fix");
+        auto trampoline = SKSE::GetTrampoline();
+        if (!trampoline->Write5Branch(unrestricted_cast<std::uintptr_t>(crashaddr), reinterpret_cast<std::uintptr_t>(code.getCode())))
+            return false;
+
+        _MESSAGE("success");
+        return true;
+    }
+
+   class TreeReflectionsPatch
+    {
+    public:
+        static bool Install()
+        {
+            const auto handle = GetModuleHandleA("d3dcompiler_46e.dll");
+
+            if (handle)
+            {
+                _WARNING("enb detected - disabling fix, please use ENB's tree reflection fix instead");
+                return true;
+            }
+
+            _MESSAGE("patching BSDistantTreeShader vfunc 3");
+            struct Patch :  SKSE::CodeGenerator
+            {
+                Patch(std::uintptr_t a_target) : SKSE::CodeGenerator()
+                {
+                    Xbyak::Label retnLabel;
+
+                    // current: if(bUseEarlyZ) v3 |= 0x10000u;
+                    // goal: if(bUseEarlyZ || v3 == 0) v3 |= 0x10000u;
+                    // if (bUseEarlyZ)
+                    // .text:0000000141318C50                 cmp     cs:bUseEarlyZ, r13b
+                    // need 6 bytes to branch jmp so enter here
+                    // enter 1318C57
+                    // .text:0000000141318C57                 jz      short loc_141318C5D
+                    jnz("CONDITION_MET");
+                    // edi = v3
+                    // if (v3 == 0)
+                    test(edi, edi);
+                    jnz("JMP_OUT");
+                    // .text:0000000141318C59                 bts     edi, 10h
+                    L("CONDITION_MET");
+                    bts(edi, 0x10);
+                    L("JMP_OUT");
+                    // exit 1318C5D
+                    jmp(ptr[rip + retnLabel]);
+
+                    L(retnLabel);
+                    dq(a_target + 0x6);
+                }
+            };
+            REL::Offset<std::uintptr_t> target (0x1343d40 + 0x37 );
+            Patch patch(target.GetAddress());
+            patch.ready();
+
+            auto trampoline = SKSE::GetTrampoline();
+            if (!trampoline->Write6Branch(unrestricted_cast<std::uintptr_t>(target.GetAddress()), reinterpret_cast<std::uintptr_t>(patch.getCode()))) {
+                return false;
+            }
+            _MESSAGE("success");
+
+            return true;
+        }
+    };
+
+    bool PatchTreeReflections()
+    {
+        _MESSAGE("- blocky tree reflections fix -");
+
+        return TreeReflectionsPatch::Install();
+    }
+
     bool PatchFaceGenMorphDataHeadNullptrCrash()
     {
         // written for VR

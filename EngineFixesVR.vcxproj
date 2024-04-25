@@ -72,14 +72,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\CommonLibVR\include;..\sksevr\src\sksevr;..\sksevr\src;$(SolutionDir)lib;$(SolutionDir)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
+    <IncludePath>$(SolutionDir)..\CommonLibVR\include;$(SolutionDir)..\sksevr_2_00_12\src\sksevr;$(SolutionDir)..\sksevr_2_00_12\src;$(SolutionDir)lib;$(SolutionDir)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir);$(SolutionDir)..\tomlplusplus\include;E:\Documents\source\repos\sksevr_2_00_12\src\common\Release</IncludePath>
     <LibraryPath>lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\CommonLibVR\include;..\sksevr\src\sksevr;..\sksevr\src;$(SolutionDir)lib;$(SolutionDir)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
+    <IncludePath>$(SolutionDir)..\CommonLibVR\include;$(SolutionDir)..\sksevr\src\sksevr;$(SolutionDir)..\sksevr\src;$(SolutionDir)lib;$(SolutionDir)include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)</IncludePath>
     <LibraryPath>lib_debug;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
@@ -111,6 +111,7 @@
       <AdditionalDependencies>common_vc14.lib;sksevr_1_4_15.lib;skse64_common.lib;CommonLibVR.lib;Version.lib;tbbmalloc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>exports.def</ModuleDefinitionFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <AdditionalLibraryDirectories>$(SolutionDir)../oneapi-tbb-2021.5.0\lib\intel64\vc14;$(SolutionDir)$(Platform)\$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(TargetPath)" "D:\Skyrim UVRE MO2\mods\Engine Fixes VR\skse\plugins" /Y</Command>

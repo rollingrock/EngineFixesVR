@@ -52,6 +52,7 @@ namespace config
     bool fixAbilityConditionBug = true;
     bool fixBuySellStackSpeechGain = true;
     bool fixShadowSceneCrash = true;
+    bool fixShadowSceneNodeNullptrCrash = true;
     bool fixFaceGenMorphDataHeadNullptrCrash = true;
 
     // Warnings
@@ -101,7 +102,7 @@ namespace config
         //fixArcheryDownwardAiming = ini.GetBoolean("Fixes", "ArcheryDownwardAiming", true);
         //fixBethesdaNetCrash = ini.GetBoolean("Fixes", "BethesdaNetCrash", true);
         fixBSLightingAmbientSpecular = ini.GetBoolean("Fixes", "BSLightingAmbientSpecular", true);
-        //fixBSLightingShaderForceAlphaTest = ini.GetBoolean("Fixes", "BSLightingShaderForceAlphaTest", true);
+        fixBSLightingShaderForceAlphaTest = ini.GetBoolean("Fixes", "BSLightingShaderForceAlphaTest", true);
         fixBSLightingShaderGeometryParallaxBug = ini.GetBoolean("Fixes", "BSLightingShaderParallaxBug", true);
         //fixBSTempEffectNiRTTI = ini.GetBoolean("Fixes", "BSTempEffectNiRTTI", true);
         fixCalendarSkipping = ini.GetBoolean("Fixes", "CalendarSkipping", true);
@@ -125,6 +126,7 @@ namespace config
         fixAbilityConditionBug = ini.GetBoolean("Fixes", "FixAbilityConditionBug", true);
         fixBuySellStackSpeechGain = ini.GetBoolean("Fixes", "FixBuySellStackSpeechGain", true);
         fixShadowSceneCrash = ini.GetBoolean("Fixes", "FixShadowSceneCrash", true);
+        fixShadowSceneNodeNullptrCrash = ini.GetBoolean("Fixes", "FixShadowSceneNodeNullptrCrash", true);
         fixFaceGenMorphDataHeadNullptrCrash = ini.GetBoolean("Fixes", "FaceGenMorphDataHeadNullptrCrash", true);
 
         // Warnings
