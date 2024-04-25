@@ -926,6 +926,70 @@ namespace fixes
         return true;
     }
 
+   class TreeReflectionsPatch
+    {
+    public:
+        static bool Install()
+        {
+            const auto handle = GetModuleHandleA("d3dcompiler_46e.dll");
+
+            if (handle)
+            {
+                _WARNING("enb detected - disabling fix, please use ENB's tree reflection fix instead");
+                return true;
+            }
+
+            _MESSAGE("patching BSDistantTreeShader vfunc 3");
+            struct Patch :  SKSE::CodeGenerator
+            {
+                Patch(std::uintptr_t a_target) : SKSE::CodeGenerator()
+                {
+                    Xbyak::Label retnLabel;
+
+                    // current: if(bUseEarlyZ) v3 |= 0x10000u;
+                    // goal: if(bUseEarlyZ || v3 == 0) v3 |= 0x10000u;
+                    // if (bUseEarlyZ)
+                    // .text:0000000141318C50                 cmp     cs:bUseEarlyZ, r13b
+                    // need 6 bytes to branch jmp so enter here
+                    // enter 1318C57
+                    // .text:0000000141318C57                 jz      short loc_141318C5D
+                    jnz("CONDITION_MET");
+                    // edi = v3
+                    // if (v3 == 0)
+                    test(edi, edi);
+                    jnz("JMP_OUT");
+                    // .text:0000000141318C59                 bts     edi, 10h
+                    L("CONDITION_MET");
+                    bts(edi, 0x10);
+                    L("JMP_OUT");
+                    // exit 1318C5D
+                    jmp(ptr[rip + retnLabel]);
+
+                    L(retnLabel);
+                    dq(a_target + 0x6);
+                }
+            };
+            REL::Offset<std::uintptr_t> target (0x1343d40 + 0x37 );
+            Patch patch(target.GetAddress());
+            patch.ready();
+
+            auto trampoline = SKSE::GetTrampoline();
+            if (!trampoline->Write6Branch(unrestricted_cast<std::uintptr_t>(target.GetAddress()), reinterpret_cast<std::uintptr_t>(patch.getCode()))) {
+                return false;
+            }
+            _MESSAGE("success");
+
+            return true;
+        }
+    };
+
+    bool PatchTreeReflections()
+    {
+        _MESSAGE("- blocky tree reflections fix -");
+
+        return TreeReflectionsPatch::Install();
+    }
+
     bool PatchFaceGenMorphDataHeadNullptrCrash()
     {
         // written for VR

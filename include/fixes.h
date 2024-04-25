@@ -23,6 +23,7 @@ namespace fixes
     bool PatchFixBuySellStackSpeechGain();
     bool PatchShadowSceneCrash();
     bool PatchShadowSceneNodeNullptrCrash();
+    bool PatchTreeReflections();
     bool PatchFaceGenMorphDataHeadNullptrCrash();
 
     bool PatchAll();

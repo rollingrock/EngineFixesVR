@@ -33,6 +33,9 @@ void MessageHandler(SKSE::MessagingInterface::Message* a_msg) {
 		if (config::patchSaveAddedSoundCategories)
 			patches::LoadVolumes();
 
+        if (config::fixTreeReflections)
+            fixes::PatchTreeReflections();
+
 		_MESSAGE("post-load patches complete");
 
 		DataHandler* dh = DataHandler::GetSingleton();
